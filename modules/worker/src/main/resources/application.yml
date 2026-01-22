@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: item-control-worker
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/item_control_db
+      auto-index-creation: true
+
+# Configuração do scheduler
+scheduler:
+  enabled: false # Desligado por padrão (ligar via profile)
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: INFO
+    br.com.harlemsilvas.itemcontrol: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [WORKER] - %msg%n"

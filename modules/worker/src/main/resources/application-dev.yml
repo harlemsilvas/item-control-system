@@ -1,0 +1,11 @@
+scheduler:
+  enabled: true # Liga scheduler em desenvolvimento
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/item_control_db_dev
+
+logging:
+  level:
+    br.com.harlemsilvas.itemcontrol: TRACE
