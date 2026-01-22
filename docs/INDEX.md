@@ -1,0 +1,175 @@
+# 📚 Índice da Documentação
+
+Bem-vindo à documentação do **Item Control System**!
+
+---
+
+## 📋 Documentos Principais
+
+### 1. Visão Geral
+- **[README Principal](../README.md)** - Visão geral do projeto, quick start e tecnologias
+
+---
+
+### 2. Architecture Decision Records (ADRs)
+
+- **[ADR 001 - Arquitetura Multi-Módulo](ADRs/001-arquitetura-multi-modulo.md)**
+  - Decisão de usar arquitetura hexagonal com 3 módulos Maven
+  - Separação entre Core, API e Worker
+  - Estratégia de migração monólito → microserviços
+
+- **[Casos de Uso Reais](ADRs/CasosUso.md)**
+  - Manutenção de veículos (Honda CB 500X)
+  - Conta de água (controle mensal)
+  - Galão de água e botijão de gás (consumíveis)
+
+---
+
+### 3. Análise e Design
+
+- **[002 - Análise de Casos de Uso e Modelo de Domínio](002-analise-casos-uso-modelo-dominio.md)**
+  - Análise detalhada dos 3 casos de uso
+  - Modelo de domínio proposto (Entidades, Value Objects, Enums)
+  - Templates de Item (VEHICLE, UTILITY_BILL, CONSUMABLE_ITEM)
+  - Casos de uso (Use Cases) completos
+  - Exemplos práticos mapeados
+
+---
+
+### 4. Planejamento
+
+- **[003 - Roadmap de Implementação](003-roadmap-implementacao.md)**
+  - Planejamento detalhado de 6 sprints (12 semanas)
+  - Sprint 1: Fundação (entidades, ports)
+  - Sprint 2: Use Cases básicos (CRUD)
+  - Sprint 3: Motor de regras
+  - Sprint 4: Templates e análises
+  - Sprint 5: Refinamentos e UX
+  - Sprint 6: MVP Final
+  - Roadmap futuro (Notificações, OAuth, Mobile, ML)
+
+---
+
+### 5. Arquitetura Técnica
+
+- **[Arquitetura Detalhada](arquitetura.md)**
+  - Diagrama de módulos
+  - Responsabilidades de cada módulo
+  - Estrutura de pacotes
+  - Fluxo de dados
+  - Patterns utilizados
+  - Estratégia de escalabilidade
+
+---
+
+### 6. Guias Operacionais
+
+- **[GitHub Setup](GITHUB-SETUP.md)**
+  - Como criar o repositório no GitHub
+  - Conectar repositório local ao remote
+  - Workflow de desenvolvimento (feature branches)
+  - Convenção de commits
+  - Comandos úteis do Git
+
+---
+
+### 7. Documentos Iniciais
+
+Pasta `iniciais/` - Documentos de concepção do projeto:
+
+- **[Nomenclatura do Projeto](iniciais/Nomenclatura-Projeto.md)**
+  - Nomenclatura atual: `item-control-system`
+  - Nomenclatura futura: `ItemFlow`
+  - Maven coordinates e packages
+  - Versionamento SemVer
+  - Estratégia de branches
+
+- **[Layout de Repositório](iniciais/Layout%20de%20Reposit%C3%B3rio.md)**
+  - Estrutura de pastas multi-módulo
+  - Organização de pacotes por módulo
+  - Dependências Maven
+  - Configuração de profiles
+  - Comandos de execução
+
+- **[Observações de Arquitetura](iniciais/Observacao.md)**
+  - Estratégia de migração gradual
+  - Separação de camadas desde o início
+  - Contratos internos claros
+  - Idempotência de alertas
+  - Processamento assíncrono
+  - Feature toggles
+
+- **[Projeto Java - Conceito Original](iniciais/Projeto-Java.md)**
+  - Objetivo do sistema completo
+  - Visão de arquitetura
+  - Stack técnica recomendada
+  - Fluxo de trabalho
+  - Modelagem do domínio
+  - Coleções MongoDB
+
+---
+
+## 🗺️ Navegação por Tópico
+
+### Para Desenvolvedores
+
+1. Começar por: **[README Principal](../README.md)**
+2. Entender arquitetura: **[ADR 001](ADRs/001-arquitetura-multi-modulo.md)** e **[Arquitetura Detalhada](arquitetura.md)**
+3. Ver modelo de domínio: **[002 - Análise de Casos de Uso](002-analise-casos-uso-modelo-dominio.md)**
+4. Planejar trabalho: **[003 - Roadmap](003-roadmap-implementacao.md)**
+5. Setup do projeto: **[GitHub Setup](GITHUB-SETUP.md)**
+
+### Para Product Owners
+
+1. Começar por: **[Casos de Uso Reais](ADRs/CasosUso.md)**
+2. Ver funcionalidades: **[002 - Análise de Casos de Uso](002-analise-casos-uso-modelo-dominio.md)**
+3. Roadmap: **[003 - Roadmap](003-roadmap-implementacao.md)**
+
+### Para Arquitetos
+
+1. Decisões arquiteturais: **[ADR 001](ADRs/001-arquitetura-multi-modulo.md)**
+2. Arquitetura técnica: **[Arquitetura Detalhada](arquitetura.md)**
+3. Observações: **[Observações de Arquitetura](iniciais/Observacao.md)**
+4. Modelo de domínio: **[002 - Análise de Casos de Uso](002-analise-casos-uso-modelo-dominio.md)**
+
+---
+
+## 📊 Status da Documentação
+
+| Documento | Status | Última Atualização |
+|-----------|--------|-------------------|
+| README Principal | ✅ Completo | 22/01/2026 |
+| ADR 001 | ✅ Completo | 22/01/2026 |
+| Casos de Uso | ✅ Completo | 22/01/2026 |
+| 002 - Análise e Modelo | ✅ Completo | 22/01/2026 |
+| 003 - Roadmap | ✅ Completo | 22/01/2026 |
+| Arquitetura Detalhada | ✅ Completo | 22/01/2026 |
+| GitHub Setup | ✅ Completo | 22/01/2026 |
+| Nomenclatura | ✅ Completo | 22/01/2026 |
+| Layout Repositório | ✅ Completo | 22/01/2026 |
+| Observações Arquitetura | ✅ Completo | 22/01/2026 |
+| Projeto Java Original | ✅ Completo | 22/01/2026 |
+
+---
+
+## 🔄 Próximos Passos
+
+1. ✅ Documentação completa
+2. ✅ Estrutura de projeto criada
+3. ✅ Repositório Git inicializado
+4. ⏳ **Criar repositório no GitHub** ([ver guia](GITHUB-SETUP.md))
+5. ⏳ **Começar Sprint 1** - Implementar entidades de domínio
+
+---
+
+## 📝 Como Contribuir com a Documentação
+
+- Documentos devem ser escritos em Markdown
+- ADRs devem seguir o formato do ADR 001
+- Manter índice atualizado
+- Data de atualização em cada documento
+- Links entre documentos quando aplicável
+
+---
+
+**Última atualização:** 22/01/2026
