@@ -73,3 +73,5 @@ logs/
 *.swp
 *.swo
 *~
+# Passwordd and token files
+.generate-token-github
