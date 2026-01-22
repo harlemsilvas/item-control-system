@@ -1,139 +1,279 @@
-# Item Control System
+# 🎯 Item Control System
 
-Sistema de controle de itens com alertas e regras customizáveis. Arquitetura multi-módulo Maven com separação entre API REST e Worker (processamento em background).
+> Sistema inteligente de controle de itens do dia a dia com motor de regras e alertas automáticos
+
+[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://openjdk.java.net/projects/jdk/17/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.1-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green.svg)](https://www.mongodb.com/)
+[![Maven](https://img.shields.io/badge/Maven-3.8+-blue.svg)](https://maven.apache.org/)
+
+---
+
+## 📋 Sobre o Projeto
+
+O **Item Control System** é uma solução completa para controle e monitoramento de itens do dia a dia, como:
+
+- 🚗 **Manutenção de Veículos** - Controle de trocas de óleo, pneus, revisões baseado em km ou tempo
+- 💧 **Contas Recorrentes** - Alertas para contas de água, luz, gás com previsão de consumo
+- 🛢️ **Consumíveis** - Previsão de reposição de galões de água, botijões de gás baseado em histórico
+
+### ✨ Características Principais
+
+- **Motor de Regras Flexível** - Suporta regras temporais, baseadas em métricas e compostas
+- **Alertas Inteligentes** - Notificações configuráveis antes de vencimentos
+- **Análise Preditiva** - Previsões baseadas em consumo histórico
+- **Arquitetura Hexagonal** - Core isolado, fácil de testar e estender
+- **Multi-Módulo Maven** - Separação clara entre API, Worker e Domínio
+- **Templates Customizáveis** - Tipos de itens pré-definidos e extensíveis
+
+---
 
 ## 🚀 Tecnologias
 
-- **Java 17**
-- **Spring Boot 3.2.1**
-- **MongoDB**
-- **Maven**
-- **Lombok**
+### Backend
+- **Java 17** - LTS, Records, Pattern Matching
+- **Spring Boot 3.2.1** - Framework principal
+- **Spring Data MongoDB** - Persistência
+- **Lombok** - Redução de boilerplate
 
-## 📦 Arquitetura
+### Banco de Dados
+- **MongoDB 7.0** - Flexibilidade de schema
 
-O projeto está dividido em 3 módulos:
+### Build & DevOps
+- **Maven** - Gerenciamento de dependências
+- **Docker** - Containerização
 
-### Core
-
-- Domínio e regras de negócio
-- Casos de uso (application layer)
-- Interfaces (ports) para persistência
-- **Não depende de Spring Boot**
-
-### API
-
-- REST API com Spring Boot
-- Controllers e DTOs
-- Autenticação e segurança
-- Adapters MongoDB
-
-### Worker
-
-- Processamento em background
-- Scheduler de regras
-- Motor de alertas
-- Pode rodar separado da API
-
-## 🏗️ Estrutura do Projeto
+## 🏗️ Arquitetura
 
 ```
-item-control-system/
-├── modules/
-│   ├── core/          # Domínio e regras de negócio
-│   ├── api/           # REST API
-│   └── worker/        # Processamento background
-├── docs/              # Documentação
-├── docker-compose.yml # MongoDB local
-└── pom.xml           # POM parent
+┌─────────────────────────────────────────┐
+│        MÓDULOS SPRING BOOT              │
+├─────────────────┬───────────────────────┤
+│   API Module    │   Worker Module       │
+│                 │                       │
+│  Controllers    │   Schedulers          │
+│  DTOs           │   Jobs                │
+│  Security       │                       │
+└────────┬────────┴──────────┬────────────┘
+         │                   │
+         └───────┬───────────┘
+                 │
+         ┌───────▼────────┐
+         │  CORE Module   │
+         │                │
+         │  Domain        │
+         │  Use Cases     │
+         │  Ports         │
+         └────────────────┘
 ```
 
-## 🔧 Como Rodar
+### Módulos
+
+- **`core`** - Domínio puro (sem Spring), casos de uso e interfaces
+- **`api`** - REST API com Spring Boot, controllers e adapters MongoDB
+- **`worker`** - Processamento background, scheduler de regras e alertas
+
+---
+
+## 🚀 Quick Start
 
 ### Pré-requisitos
 
 - Java 17+
 - Maven 3.8+
-- MongoDB (ou Docker)
+- Docker & Docker Compose
 
-### 1. Subir MongoDB (Docker)
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/harlemsilvas/item-control-system.git
+cd item-control-system
+```
+
+### 2. Inicie o MongoDB via Docker
 
 ```bash
 docker-compose up -d
 ```
 
-### 2. Rodar API
+### 3. Compile o projeto
+
+```bash
+mvn clean install
+```
+
+### 4. Execute a API
 
 ```bash
 mvn -pl modules/api spring-boot:run
 ```
 
-A API estará disponível em: `http://localhost:8080`
-
-Swagger UI: `http://localhost:8080/swagger-ui.html`
-
-### 3. Rodar Worker (em outro terminal)
+### 5. Execute o Worker (opcional)
 
 ```bash
 mvn -pl modules/worker spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
-### 4. Rodar Monólito (API + Worker juntos)
+### 6. Acesse a documentação Swagger
 
-Você pode rodar ambos no mesmo processo ativando ambos os módulos.
-
-## 🧪 Executar Testes
-
-```bash
-# Todos os testes
-mvn clean test
-
-# Apenas um módulo
-mvn -pl modules/core test
+```
+http://localhost:8080/swagger-ui.html
 ```
 
-## 📝 Profiles Spring
-
-### API
-
-- `default`: Configuração padrão
-- `dev`: Desenvolvimento com logs verbosos
-
-### Worker
-
-- `default`: Scheduler **desligado**
-- `dev`: Scheduler **ligado**
-
-## 🛠️ Build
-
-```bash
-# Build completo
-mvn clean install
-
-# Build sem testes
-mvn clean install -DskipTests
-
-# Package (gerar JARs)
-mvn clean package
-```
+---
 
 ## 📚 Documentação
 
-- [Nomenclatura e Estratégia](../Docs/Nomenclatura-Projeto.md)
-- [Layout de Repositório](../Docs/Layout%20de%20Repositório.md)
-- [Observações de Arquitetura](../Docs/Observacao.md)
+- [ADR 001 - Arquitetura Multi-Módulo](docs/ADRs/001-arquitetura-multi-modulo.md)
+- [Análise de Casos de Uso e Modelo de Domínio](docs/002-analise-casos-uso-modelo-dominio.md)
+- [Roadmap de Implementação](docs/003-roadmap-implementacao.md)
+- [Arquitetura Detalhada](docs/arquitetura.md)
+- [Casos de Uso Reais](docs/ADRs/CasosUso.md)
 
-## 🎯 Roadmap
+---
 
+## 🎯 Casos de Uso
+
+### Exemplo 1: Troca de Óleo de Veículo
+
+```json
+POST /api/items
+{
+  "name": "Honda CB 500X",
+  "nickname": "Motoca",
+  "templateCode": "VEHICLE",
+  "tags": ["moto", "honda"],
+  "metadata": {
+    "brand": "Honda",
+    "model": "CB 500X",
+    "year": 2020,
+    "currentKm": 15000,
+    "lastOilChangeKm": 10000,
+    "lastOilChangeDate": "2025-07-15"
+  }
+}
+```
+
+**Alerta gerado:** 500 km antes OU 15 dias antes da próxima troca (o que vier primeiro)
+
+### Exemplo 2: Conta de Água
+
+```json
+POST /api/items
+{
+  "name": "Conta de Água - Casa Mãe",
+  "templateCode": "UTILITY_BILL",
+  "tags": ["casa-mae", "residencial"],
+  "metadata": {
+    "billType": "WATER",
+    "dueDay": 10,
+    "averageValue": 160.00
+  }
+}
+```
+
+**Alertas:** 5 dias antes e 1 dia antes do vencimento mensal
+
+---
+
+## 🧪 Testes
+
+### Executar todos os testes
+
+```bash
+mvn test
+```
+
+### Executar testes de um módulo específico
+
+```bash
+mvn -pl modules/core test
+```
+
+---
+
+## 📦 Estrutura do Projeto
+
+```
+item-control-system/
+├── docs/                           # Documentação
+│   ├── ADRs/                       # Architecture Decision Records
+│   └── iniciais/                   # Documentação inicial
+├── modules/
+│   ├── core/                       # Domínio e casos de uso
+│   │   └── src/main/java/
+│   │       └── br/com/harlemsilvas/itemcontrol/core/
+│   │           ├── domain/         # Entidades, VOs, Enums
+│   │           └── application/    # Use Cases e Ports
+│   ├── api/                        # REST API
+│   │   └── src/main/java/
+│   │       └── br/com/harlemsilvas/itemcontrol/api/
+│   │           ├── web/            # Controllers
+│   │           ├── config/         # Configurações
+│   │           └── infra/          # Adapters MongoDB
+│   └── worker/                     # Background Jobs
+│       └── src/main/java/
+│           └── br/com/harlemsilvas/itemcontrol/worker/
+│               └── scheduler/      # Schedulers
+├── docker-compose.yml
+├── pom.xml                         # POM Pai
+└── README.md
+```
+
+---
+
+## 📅 Roadmap
+
+### ✅ Sprint 1 (Atual)
 - [x] Estrutura multi-módulo Maven
-- [x] Módulo core com domínio
-- [ ] Implementar entidades (Item, Rule, Alert, Event)
-- [ ] Endpoints REST da API
-- [ ] Motor de regras no Worker
-- [ ] Autenticação JWT
-- [ ] Testes unitários e integração
-- [ ] CI/CD com GitHub Actions
-- [ ] Deploy em Cloud (futuro)
+- [x] Docker Compose
+- [x] Documentação inicial
+- [ ] Entidades de domínio
+- [ ] Ports e interfaces
+
+### 🚧 Sprint 2
+- [ ] Use Cases básicos (CRUD)
+- [ ] MongoDB Adapters
+- [ ] Controllers REST
+- [ ] Testes de integração
+
+### 📋 Sprint 3
+- [ ] Motor de regras
+- [ ] Scheduler
+- [ ] Geração de alertas
+
+### 🔮 Futuro
+- [ ] Notificações (E-mail, Push, WhatsApp)
+- [ ] Autenticação OAuth2
+- [ ] Mobile App
+- [ ] Machine Learning para previsões
+
+[Ver roadmap completo](docs/003-roadmap-implementacao.md)
+
+---
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Por favor:
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'feat: Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+### Convenção de Commits
+
+Seguimos [Conventional Commits](https://www.conventionalcommits.org/):
+
+- `feat:` - Nova funcionalidade
+- `fix:` - Correção de bug
+- `docs:` - Documentação
+- `chore:` - Tarefas de manutenção
+- `test:` - Adição/correção de testes
+- `refactor:` - Refatoração de código
+
+---
 
 ## 👨‍💻 Autor
 
@@ -141,11 +281,13 @@ mvn clean package
 
 - GitHub: [@harlemsilvas](https://github.com/harlemsilvas)
 
-## 📄 Licença
+---
 
-Este projeto está em desenvolvimento para fins de aprendizado e portfólio.
+## ⭐ Mostre seu apoio
+
+Se este projeto te ajudou, dê uma ⭐️!
 
 ---
 
 **Versão:** 0.1.0-SNAPSHOT  
-**Status:** Em desenvolvimento
+**Status:** 🚧 Em desenvolvimento ativo
