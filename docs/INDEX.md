@@ -48,6 +48,13 @@ Bem-vindo à documentação do **Item Control System**!
   - Sprint 6: MVP Final
   - Roadmap futuro (Notificações, OAuth, Mobile, ML)
 
+- **[004 - Sprint 1 Progresso](004-sprint-1-progresso.md)**
+  - Relatório de progresso do Sprint 1
+  - Estatísticas de código
+  - Arquivos criados e commits
+  - Padrões aplicados
+  - Próximos passos
+
 ---
 
 ### 5. Arquitetura Técnica
@@ -143,6 +150,7 @@ Pasta `iniciais/` - Documentos de concepção do projeto:
 | Casos de Uso | ✅ Completo | 22/01/2026 |
 | 002 - Análise e Modelo | ✅ Completo | 22/01/2026 |
 | 003 - Roadmap | ✅ Completo | 22/01/2026 |
+| 004 - Sprint 1 Progresso | ✅ Completo | 22/01/2026 |
 | Arquitetura Detalhada | ✅ Completo | 22/01/2026 |
 | GitHub Setup | ✅ Completo | 22/01/2026 |
 | Nomenclatura | ✅ Completo | 22/01/2026 |
@@ -157,8 +165,10 @@ Pasta `iniciais/` - Documentos de concepção do projeto:
 1. ✅ Documentação completa
 2. ✅ Estrutura de projeto criada
 3. ✅ Repositório Git inicializado
-4. ⏳ **Criar repositório no GitHub** ([ver guia](GITHUB-SETUP.md))
-5. ⏳ **Começar Sprint 1** - Implementar entidades de domínio
+4. ✅ **Entidades de domínio implementadas**
+5. ✅ **Testes unitários do core (33 testes)**
+6. ⏳ **Criar repositório no GitHub** ([ver guia](GITHUB-SETUP.md))
+7. ⏳ **Começar Sprint 2** - Use Cases e Controllers REST
 
 ---
 
