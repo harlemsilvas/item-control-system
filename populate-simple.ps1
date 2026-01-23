@@ -75,7 +75,7 @@ foreach ($item in $createdItems) {
 
     for ($i = 1; $i -le 5; $i++) {
         $daysAgo = 30 * $i
-        $eventDate = (Get-Date).AddDays(-$daysAgo).ToUniversalTime().ToString("o")
+        $eventDate = (Get-Date).AddDays(-$daysAgo).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
 
         # Determinar tipo de evento baseado no template do item
         $eventType = switch ($item.templateCode) {
@@ -130,7 +130,7 @@ foreach ($item in $createdItems) {
     for ($i = 1; $i -le 2; $i++) {
         $priority = Get-Random -Minimum 2 -Maximum 5
         $daysAhead = 7 * $i
-        $dueDate = (Get-Date).AddDays($daysAhead).ToUniversalTime().ToString("o")
+        $dueDate = (Get-Date).AddDays($daysAhead).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
 
         # Estrutura correta conforme CreateAlertRequest.java
         $alertBody = @{
