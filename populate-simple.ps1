@@ -132,12 +132,15 @@ foreach ($item in $createdItems) {
         $daysAhead = 7 * $i
         $dueDate = (Get-Date).AddDays($daysAhead).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
 
+        # Escolher AlertType valido baseado na prioridade
+        $alertType = if ($priority -ge 4) { "URGENT" } elseif ($priority -eq 3) { "WARNING" } else { "INFO" }
+
         # Estrutura correta conforme CreateAlertRequest.java
         $alertBody = @{
             itemId = $item.id
             userId = $userId
             ruleId = [Guid]::NewGuid().ToString()
-            alertType = "SCHEDULED"
+            alertType = $alertType
             title = "Alerta $i para $($item.name)"
             message = "Vencimento em $daysAhead dias"
             priority = [int]$priority
