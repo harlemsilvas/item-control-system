@@ -1,0 +1,15 @@
+{
+  "userId": "550e8400-e29b-41d4-a716-446655440001",
+  "name": "Honda CB 500X",
+  "nickname": "Motoca",
+  "categoryId": "650e8400-e29b-41d4-a716-446655440002",
+  "templateCode": "VEHICLE",
+  "tags": ["moto", "honda", "transporte"],
+  "metadata": {
+    "brand": "Honda",
+    "model": "CB 500X",
+    "year": 2020,
+    "plate": "ABC-1234",
+    "color": "Vermelha"
+  }
+}

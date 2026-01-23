@@ -1,0 +1,1 @@
+Get-Process | Where-Object {$_.ProcessName -eq "java"} | ForEach-Object { Write-Host "Processo Java encontrado - PID: $($_.Id)" -ForegroundColor Yellow; Stop-Process -Id $_.Id -Force; Write-Host "✅ Processo Java (PID: $($_.Id)) encerrado!" -ForegroundColor Green }

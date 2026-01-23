@@ -80,7 +80,39 @@ Bem-vindo à documentação do **Item Control System**!
 
 ---
 
-### 7. Documentos Iniciais
+### 7. Guias Práticos (Raiz do Projeto)
+
+- **[RESUMO-EXECUTIVO.md](../RESUMO-EXECUTIVO.md)**
+  - Visão geral completa do sistema
+  - Como usar o sistema (start, compile, run)
+  - Exemplos de uso da API
+  - Decisões técnicas importantes
+  - Troubleshooting
+  - Próximos passos recomendados
+
+- **[GUIA-TESTES.md](../GUIA-TESTES.md)**
+  - Passo a passo para testar a API
+  - Testes via Swagger UI e PowerShell
+  - Verificação no MongoDB
+  - Checklist de validação
+  - Problemas comuns e soluções
+
+- **[PROXIMO-PASSO.md](../PROXIMO-PASSO.md)**
+  - Roteiro para continuar o desenvolvimento
+  - Opções de trabalho (Testes, GitHub, Sprint 2)
+  - Comandos prontos para uso
+  - Objetivos da Sprint 2
+  - Dashboard de progresso
+
+- **[CHECKLIST-RETOMADA.md](../CHECKLIST-RETOMADA.md)**
+  - Verificações rápidas ao retomar trabalho
+  - Opções de trabalho organizadas
+  - Comandos úteis prontos
+  - Checklist de fim de sessão
+
+---
+
+### 8. Documentos Iniciais
 
 Pasta `iniciais/` - Documentos de concepção do projeto:
 
@@ -151,8 +183,11 @@ Pasta `iniciais/` - Documentos de concepção do projeto:
 | 002 - Análise e Modelo | ✅ Completo | 22/01/2026 |
 | 003 - Roadmap | ✅ Completo | 22/01/2026 |
 | 004 - Sprint 1 Progresso | ✅ Completo | 22/01/2026 |
+| 005 - Sprint 1 Status Final | ✅ Completo | 22/01/2026 |
 | Arquitetura Detalhada | ✅ Completo | 22/01/2026 |
 | GitHub Setup | ✅ Completo | 22/01/2026 |
+| RESUMO-EXECUTIVO | ✅ Completo | 22/01/2026 |
+| GUIA-TESTES | ✅ Completo | 22/01/2026 |
 | Nomenclatura | ✅ Completo | 22/01/2026 |
 | Layout Repositório | ✅ Completo | 22/01/2026 |
 | Observações Arquitetura | ✅ Completo | 22/01/2026 |
@@ -167,8 +202,11 @@ Pasta `iniciais/` - Documentos de concepção do projeto:
 3. ✅ Repositório Git inicializado
 4. ✅ **Entidades de domínio implementadas**
 5. ✅ **Testes unitários do core (33 testes)**
-6. ⏳ **Criar repositório no GitHub** ([ver guia](GITHUB-SETUP.md))
-7. ⏳ **Começar Sprint 2** - Use Cases e Controllers REST
+6. ✅ **Repositório no GitHub criado** (remote configurado)
+7. ✅ **Sprint 2 Fase 1** - Use Cases e Controllers REST implementados
+8. ⏳ **Commit e Push final** - Versionar arquivos de hoje
+9. ⏳ **Release v0.1.0** - Criar tag no GitHub
+10. ⏳ **Sprint 2 Fase 2** - AlertRepository e sistema de alertas
 
 ---
 
