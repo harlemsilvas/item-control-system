@@ -141,15 +141,43 @@ POST /api/v1/alerts
 
 ## 🚀 PRÓXIMOS PASSOS
 
-### Para Alertas:
-1. Testar criação manual via Swagger
-2. Se funcionar: comparar JSON gerado com JSON do PowerShell
-3. Ajustar script baseado na diferença
+### Investigação de Alertas - Ferramentas Criadas:
+
+1. **diagnostico-alertas.ps1** ⭐
+   - Testa 8 passos diferentes
+   - Verifica formatos de data
+   - Testa diferentes AlertTypes
+   - Testa diferentes prioridades (1-5)
+   - Identifica campo problemático
+
+2. **test-alert.bat**
+   - Teste via curl (Windows CMD)
+   - Mostra resposta HTTP completa
+   - Bypass de problemas do PowerShell
+
+### Passos para Resolver:
+
+**OPÇÃO A: Via Swagger UI (mais rápido)**
+1. Abrir http://localhost:8080/swagger-ui.html
+2. POST /api/v1/alerts
+3. Tentar criar com exemplo do CreateAlertRequest
+4. Se funcionar: comparar JSON com o do PowerShell
+5. Identificar diferença
+
+**OPÇÃO B: Via Logs da API**
+1. Verificar console da aplicação Java
+2. Procurar por stack trace ou validation errors
+3. Identificar campo que está falhando
+
+**OPÇÃO C: Via Script de Diagnóstico**
+1. Executar: `.\diagnostico-alertas.ps1`
+2. Analisar qual teste passou/falhou
+3. Ajustar populate-simple.ps1 baseado no resultado
 
 ### Para Produção:
 1. ✅ Script de items funciona (15/15)
 2. ✅ Script de eventos funciona (75/75)
-3. ⏳ Script de alertas precisa ajuste
+3. ⏳ Script de alertas precisa ajuste (investigação em andamento)
 
 ---
 
