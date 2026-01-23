@@ -1,7 +1,12 @@
 package br.com.harlemsilvas.itemcontrol.api.config;
 
+import br.com.harlemsilvas.itemcontrol.core.application.ports.AlertRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.EventRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.ItemRepository;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.alert.AcknowledgeAlertUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.alert.CreateAlertUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.alert.ListPendingAlertsUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.alert.ResolveAlertUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.event.GetEventHistoryUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.event.RegisterEventUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.item.CreateItemUseCase;
@@ -51,5 +56,29 @@ public class UseCaseConfig {
     @Bean
     public GetEventHistoryUseCase getEventHistoryUseCase(EventRepository eventRepository) {
         return new GetEventHistoryUseCase(eventRepository);
+    }
+
+    // Alert Use Cases
+
+    @Bean
+    public CreateAlertUseCase createAlertUseCase(
+            AlertRepository alertRepository,
+            ItemRepository itemRepository) {
+        return new CreateAlertUseCase(alertRepository, itemRepository);
+    }
+
+    @Bean
+    public ListPendingAlertsUseCase listPendingAlertsUseCase(AlertRepository alertRepository) {
+        return new ListPendingAlertsUseCase(alertRepository);
+    }
+
+    @Bean
+    public AcknowledgeAlertUseCase acknowledgeAlertUseCase(AlertRepository alertRepository) {
+        return new AcknowledgeAlertUseCase(alertRepository);
+    }
+
+    @Bean
+    public ResolveAlertUseCase resolveAlertUseCase(AlertRepository alertRepository) {
+        return new ResolveAlertUseCase(alertRepository);
     }
 }
