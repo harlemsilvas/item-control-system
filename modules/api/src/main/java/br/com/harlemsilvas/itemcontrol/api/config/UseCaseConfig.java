@@ -3,6 +3,7 @@ package br.com.harlemsilvas.itemcontrol.api.config;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.AlertRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.EventRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.ItemRepository;
+import br.com.harlemsilvas.itemcontrol.core.application.ports.RuleRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.alert.AcknowledgeAlertUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.alert.CreateAlertUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.alert.ListPendingAlertsUseCase;
@@ -13,6 +14,10 @@ import br.com.harlemsilvas.itemcontrol.core.application.usecases.item.CreateItem
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.item.GetItemByIdUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.item.ListUserItemsUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.item.UpdateItemMetadataUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.rule.CreateRuleUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.rule.DeleteRuleUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.rule.GetRulesByItemUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.rule.UpdateRuleUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -80,5 +85,29 @@ public class UseCaseConfig {
     @Bean
     public ResolveAlertUseCase resolveAlertUseCase(AlertRepository alertRepository) {
         return new ResolveAlertUseCase(alertRepository);
+    }
+
+    // Rule Use Cases
+
+    @Bean
+    public CreateRuleUseCase createRuleUseCase(
+            RuleRepository ruleRepository,
+            ItemRepository itemRepository) {
+        return new CreateRuleUseCase(ruleRepository, itemRepository);
+    }
+
+    @Bean
+    public GetRulesByItemUseCase getRulesByItemUseCase(RuleRepository ruleRepository) {
+        return new GetRulesByItemUseCase(ruleRepository);
+    }
+
+    @Bean
+    public UpdateRuleUseCase updateRuleUseCase(RuleRepository ruleRepository) {
+        return new UpdateRuleUseCase(ruleRepository);
+    }
+
+    @Bean
+    public DeleteRuleUseCase deleteRuleUseCase(RuleRepository ruleRepository) {
+        return new DeleteRuleUseCase(ruleRepository);
     }
 }
