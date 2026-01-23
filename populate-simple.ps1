@@ -77,15 +77,24 @@ foreach ($item in $createdItems) {
         $daysAgo = 30 * $i
         $eventDate = (Get-Date).AddDays(-$daysAgo).ToUniversalTime().ToString("o")
 
+        # Determinar tipo de evento baseado no template do item
+        $eventType = switch ($item.templateCode) {
+            "VEHICLE" { "MAINTENANCE" }
+            "UTILITY_BILL" { "PAYMENT" }
+            "CONSUMABLE_ITEM" { "PURCHASE" }
+            default { "UPDATE" }
+        }
+
+        # Estrutura correta conforme RegisterEventRequest.java
         $eventBody = @{
             itemId = $item.id
             userId = $userId
-            eventType = "CONSUMPTION"
+            eventType = $eventType
             eventDate = $eventDate
-            description = "Evento $i - $daysAgo dias atras"
+            description = "Evento $i - $daysAgo dias atras ($eventType)"
             metrics = @{
-                value = Get-Random -Minimum 50 -Maximum 500
-                cost = Get-Random -Minimum 50 -Maximum 500
+                value = (Get-Random -Minimum 50 -Maximum 500)
+                cost = (Get-Random -Minimum 50 -Maximum 500)
             }
         } | ConvertTo-Json -Depth 10
 
@@ -123,6 +132,7 @@ foreach ($item in $createdItems) {
         $daysAhead = 7 * $i
         $dueDate = (Get-Date).AddDays($daysAhead).ToUniversalTime().ToString("o")
 
+        # Estrutura correta conforme CreateAlertRequest.java
         $alertBody = @{
             itemId = $item.id
             userId = $userId
@@ -130,14 +140,14 @@ foreach ($item in $createdItems) {
             alertType = "SCHEDULED"
             title = "Alerta $i para $($item.name)"
             message = "Vencimento em $daysAhead dias"
-            priority = $priority
+            priority = [int]$priority
             dueAt = $dueDate
         } | ConvertTo-Json -Depth 10
 
         try {
             $result = Invoke-RestMethod -Uri "$baseUrl/alerts" -Method POST -ContentType "application/json" -Body $alertBody -ErrorAction Stop
             $alertCount++
-            Write-Host "    OK: Alerta $i criado" -ForegroundColor Green
+            Write-Host "    OK: Alerta $i criado (prioridade $priority)" -ForegroundColor Green
         } catch {
             $alertErrors++
             Write-Host "    ERRO: $($_.Exception.Message)" -ForegroundColor Red
