@@ -1,19 +1,37 @@
 spring:
   data:
     mongodb:
-      # URI PÚBLICA do Railway (acessível de qualquer lugar)
-      # IMPORTANTE: Railway requer database separado da URI
-      uri: ${MONGODB_URI:mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930}
-      database: ${MONGODB_DATABASE:item_control_db}
+      # MongoDB connection via environment variable
+      # Use MongoDB Atlas for production (free 512MB)
+      # Format: mongodb+srv://user:password@cluster.mongodb.net/database
+      uri: ${MONGODB_URI:mongodb://localhost:27017/item_control_db}
       auto-index-creation: true
 
-logging:
-  level:
-    br.com.harlemsilvas.itemcontrol: INFO
-    org.springframework.data.mongodb: WARN
+  application:
+    name: Item Control System
 
-# Configurações de segurança para produção
 server:
+  port: ${PORT:8080}
+  compression:
+    enabled: true
   error:
     include-message: never
     include-stacktrace: never
+    include-binding-errors: never
+
+logging:
+  level:
+    root: INFO
+    br.com.harlemsilvas.itemcontrol: INFO
+    org.springframework.data.mongodb: WARN
+    org.springframework.web: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
