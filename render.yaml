@@ -1,0 +1,22 @@
+# Render Blueprint Configuration
+# Deploy Spring Boot + MongoDB Atlas no Render (100% FREE)
+
+services:
+  # API Spring Boot
+  - type: web
+    name: item-control-api
+    runtime: java
+    region: oregon
+    plan: free
+    branch: deploy/render
+    buildCommand: mvn clean package -DskipTests -pl modules/api -am
+    startCommand: java -Xmx512m -jar modules/api/target/item-control-api-0.1.0-SNAPSHOT.jar
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: MONGODB_URI
+        sync: false
+      - key: PORT
+        value: 10000
+    healthCheckPath: /actuator/health
+    autoDeploy: true
