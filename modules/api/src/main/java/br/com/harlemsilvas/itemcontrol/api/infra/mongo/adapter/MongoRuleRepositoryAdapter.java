@@ -53,9 +53,18 @@ public class MongoRuleRepositoryAdapter implements RuleRepository {
     }
 
     @Override
-    public List<Rule> findActiveByItemId(UUID itemId) {
+    public List<Rule> findByItemIdAndEnabled(UUID itemId, boolean enabled) {
         return springDataRepository.findByItemIdAndEnabled(
-                        RuleDocument.toStringId(itemId), true)
+                        RuleDocument.toStringId(itemId), enabled)
+                .stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<Rule> findAllEnabled() {
+        return springDataRepository.findByEnabled(true)
                 .stream()
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
@@ -79,5 +88,10 @@ public class MongoRuleRepositoryAdapter implements RuleRepository {
     @Override
     public long countByItemId(UUID itemId) {
         return springDataRepository.findByItemId(RuleDocument.toStringId(itemId)).size();
+    }
+
+    @Override
+    public long countByEnabled(boolean enabled) {
+        return springDataRepository.countByEnabled(enabled);
     }
 }

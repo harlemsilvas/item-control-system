@@ -28,7 +28,17 @@ public interface SpringDataRuleRepository extends MongoRepository<RuleDocument, 
     List<RuleDocument> findByItemIdAndEnabled(String itemId, boolean enabled);
 
     /**
+     * Busca todas as regras por status enabled.
+     */
+    List<RuleDocument> findByEnabled(boolean enabled);
+
+    /**
      * Deleta todas as regras de um item.
      */
     void deleteByItemId(String itemId);
+
+    /**
+     * Conta regras por status enabled/disabled.
+     */
+    long countByEnabled(boolean enabled);
 }

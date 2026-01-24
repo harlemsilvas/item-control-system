@@ -1,0 +1,316 @@
+package br.com.harlemsilvas.itemcontrol.core.application.usecases.rule;
+
+import br.com.harlemsilvas.itemcontrol.core.application.ports.AlertRepository;
+import br.com.harlemsilvas.itemcontrol.core.application.ports.EventRepository;
+import br.com.harlemsilvas.itemcontrol.core.application.ports.ItemRepository;
+import br.com.harlemsilvas.itemcontrol.core.application.ports.RuleRepository;
+import br.com.harlemsilvas.itemcontrol.core.domain.model.Alert;
+import br.com.harlemsilvas.itemcontrol.core.domain.model.Event;
+import br.com.harlemsilvas.itemcontrol.core.domain.model.Item;
+import br.com.harlemsilvas.itemcontrol.core.domain.model.Rule;
+import br.com.harlemsilvas.itemcontrol.core.domain.enums.AlertStatus;
+import br.com.harlemsilvas.itemcontrol.core.domain.enums.AlertType;
+import br.com.harlemsilvas.itemcontrol.core.domain.enums.RuleType;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * Use case para processar todas as regras ativas e gerar alertas automaticamente.
+ * Este é o coração do Rules Engine.
+ * 
+ * @author Harlem Silva
+ * @since 2026-01-23
+ */
+public class ProcessRulesUseCase {
+    
+    private final RuleRepository ruleRepository;
+    private final ItemRepository itemRepository;
+    private final EventRepository eventRepository;
+    private final AlertRepository alertRepository;
+    
+    public ProcessRulesUseCase(RuleRepository ruleRepository,
+                              ItemRepository itemRepository,
+                              EventRepository eventRepository,
+                              AlertRepository alertRepository) {
+        this.ruleRepository = Objects.requireNonNull(ruleRepository, "RuleRepository cannot be null");
+        this.itemRepository = Objects.requireNonNull(itemRepository, "ItemRepository cannot be null");
+        this.eventRepository = Objects.requireNonNull(eventRepository, "EventRepository cannot be null");
+        this.alertRepository = Objects.requireNonNull(alertRepository, "AlertRepository cannot be null");
+    }
+    
+    /**
+     * Processa todas as regras ativas e gera alertas quando necessário.
+     *
+     * @return resultado do processamento
+     */
+    public ProcessingResult execute() {
+        List<Rule> activeRules = ruleRepository.findAllEnabled();
+        
+        int processed = 0;
+        int alertsGenerated = 0;
+        List<String> errors = new ArrayList<>();
+        
+        for (Rule rule : activeRules) {
+            try {
+                boolean shouldAlert = evaluateRule(rule);
+                
+                if (shouldAlert) {
+                    Alert alert = generateAlert(rule);
+                    if (alert != null) {
+                        alertRepository.save(alert);
+                        alertsGenerated++;
+                    }
+                }
+                
+                processed++;
+            } catch (Exception e) {
+                errors.add("Error processing rule " + rule.getId() + ": " + e.getMessage());
+            }
+        }
+        
+        return new ProcessingResult(
+                activeRules.size(),
+                processed,
+                alertsGenerated,
+                errors
+        );
+    }
+    
+    /**
+     * Avalia se uma regra deve gerar um alerta.
+     */
+    private boolean evaluateRule(Rule rule) {
+        Optional<Item> itemOpt = itemRepository.findById(rule.getItemId());
+        if (itemOpt.isEmpty()) {
+            return false;
+        }
+        
+        Item item = itemOpt.get();
+        
+        // Verifica se já existe alerta pendente para esta regra
+        if (hasRecentPendingAlert(rule)) {
+            return false;
+        }
+        
+        return switch (rule.getRuleType()) {
+            case TIME_BASED -> evaluateTimeBasedRule(rule, item);
+            case METRIC_BASED -> evaluateMetricBasedRule(rule, item);
+            case EVENT_COUNT -> evaluateEventCountRule(rule, item);
+            case COMPOSITE -> evaluateCompositeRule(rule, item);
+        };
+    }
+    
+    /**
+     * Avalia regra baseada em tempo.
+     */
+    private boolean evaluateTimeBasedRule(Rule rule, Item item) {
+        List<Event> events = eventRepository.findByItemIdOrderByOccurredAtDesc(item.getId());
+        
+        if (events.isEmpty()) {
+            // Se não há eventos, verifica tempo desde criação do item
+            long daysSinceCreation = ChronoUnit.DAYS.between(item.getCreatedAt(), Instant.now());
+            Integer intervalDays = rule.getConditions().get("intervalDays") != null ? 
+                    Integer.parseInt(rule.getConditions().get("intervalDays").toString()) : null;
+            
+            if (intervalDays != null) {
+                Integer warningDaysBefore = rule.getConditions().get("warningDaysBefore") != null ?
+                        Integer.parseInt(rule.getConditions().get("warningDaysBefore").toString()) : 0;
+                
+                return daysSinceCreation >= (intervalDays - warningDaysBefore);
+            }
+            
+            return false;
+        }
+        
+        // Verifica último evento
+        Event lastEvent = events.get(0);
+        long daysSinceLastEvent = ChronoUnit.DAYS.between(lastEvent.getOccurredAt(), Instant.now());
+        
+        Integer intervalDays = rule.getConditions().get("intervalDays") != null ? 
+                Integer.parseInt(rule.getConditions().get("intervalDays").toString()) : null;
+        Integer warningDaysBefore = rule.getConditions().get("warningDaysBefore") != null ?
+                Integer.parseInt(rule.getConditions().get("warningDaysBefore").toString()) : 0;
+        
+        if (intervalDays != null && warningDaysBefore != null) {
+            return daysSinceLastEvent >= (intervalDays - warningDaysBefore);
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Avalia regra baseada em métrica.
+     */
+    private boolean evaluateMetricBasedRule(Rule rule, Item item) {
+        String metricField = (String) rule.getConditions().get("metricField");
+        Number threshold = (Number) rule.getConditions().get("threshold");
+        Number warningThreshold = (Number) rule.getConditions().get("warningThreshold");
+        
+        if (metricField == null || threshold == null) {
+            return false;
+        }
+        
+        Object currentValue = item.getMetadata().get(metricField);
+        if (currentValue instanceof Number) {
+            double current = ((Number) currentValue).doubleValue();
+            double limit = threshold.doubleValue();
+            double warning = warningThreshold != null ? warningThreshold.doubleValue() : limit;
+            
+            return current >= warning;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Avalia regra baseada em contagem de eventos.
+     */
+    private boolean evaluateEventCountRule(Rule rule, Item item) {
+        Integer countThreshold = rule.getConditions().get("countThreshold") != null ?
+                Integer.parseInt(rule.getConditions().get("countThreshold").toString()) : null;
+        Integer periodDays = rule.getConditions().get("periodDays") != null ?
+                Integer.parseInt(rule.getConditions().get("periodDays").toString()) : 30;
+        
+        if (countThreshold == null) {
+            return false;
+        }
+        
+        Instant since = Instant.now().minus(periodDays, ChronoUnit.DAYS);
+        List<Event> recentEvents = eventRepository.findByItemIdOrderByOccurredAtDesc(item.getId())
+                .stream()
+                .filter(e -> e.getOccurredAt().isAfter(since))
+                .collect(Collectors.toList());
+        
+        return recentEvents.size() >= countThreshold;
+    }
+    
+    /**
+     * Avalia regra composta (múltiplas condições).
+     */
+    private boolean evaluateCompositeRule(Rule rule, Item item) {
+        // Regra composta combina TIME_BASED e METRIC_BASED
+        boolean timeCondition = evaluateTimeBasedRule(rule, item);
+        boolean metricCondition = evaluateMetricBasedRule(rule, item);
+        
+        String operator = (String) rule.getConditions().getOrDefault("operator", "OR");
+        
+        return switch (operator) {
+            case "AND" -> timeCondition && metricCondition;
+            case "OR" -> timeCondition || metricCondition;
+            default -> false;
+        };
+    }
+    
+    /**
+     * Verifica se já existe alerta pendente recente para esta regra.
+     */
+    private boolean hasRecentPendingAlert(Rule rule) {
+        Instant oneDayAgo = Instant.now().minus(1, ChronoUnit.DAYS);
+        
+        List<Alert> recentAlerts = alertRepository.findPendingByItemId(rule.getItemId())
+                .stream()
+                .filter(a -> a.getCreatedAt().isAfter(oneDayAgo))
+                .filter(a -> a.getMessage().contains(rule.getName()))
+                .collect(Collectors.toList());
+        
+        return !recentAlerts.isEmpty();
+    }
+    
+    /**
+     * Gera um alerta baseado na regra.
+     */
+    private Alert generateAlert(Rule rule) {
+        Optional<Item> itemOpt = itemRepository.findById(rule.getItemId());
+        if (itemOpt.isEmpty()) {
+            return null;
+        }
+        
+        Item item = itemOpt.get();
+        
+        AlertType alertType = determineAlertType(rule);
+        String message = buildAlertMessage(rule, item);
+        
+        return new Alert.Builder()
+                .itemId(item.getId())
+                .userId(item.getUserId())
+                .type(alertType)
+                .message(message)
+                .status(AlertStatus.PENDING)
+                .createdAt(Instant.now())
+                .build();
+    }
+    
+    /**
+     * Determina o tipo de alerta baseado na severidade da regra.
+     */
+    private AlertType determineAlertType(Rule rule) {
+        String severity = (String) rule.getConditions().getOrDefault("severity", "INFO");
+        
+        return switch (severity.toUpperCase()) {
+            case "URGENT" -> AlertType.URGENT;
+            case "WARNING" -> AlertType.WARNING;
+            default -> AlertType.INFO;
+        };
+    }
+    
+    /**
+     * Constrói a mensagem do alerta.
+     */
+    private String buildAlertMessage(Rule rule, Item item) {
+        return String.format(
+                "⚠️ Alerta: %s - %s. Item: %s (%s)",
+                rule.getName(),
+                rule.getDescription(),
+                item.getName(),
+                item.getNickname() != null ? item.getNickname() : item.getId()
+        );
+    }
+    
+    /**
+     * Resultado do processamento de regras.
+     */
+    public static class ProcessingResult {
+        private final int totalRules;
+        private final int processedRules;
+        private final int alertsGenerated;
+        private final List<String> errors;
+        
+        public ProcessingResult(int totalRules, int processedRules, int alertsGenerated, List<String> errors) {
+            this.totalRules = totalRules;
+            this.processedRules = processedRules;
+            this.alertsGenerated = alertsGenerated;
+            this.errors = new ArrayList<>(errors);
+        }
+        
+        public int getTotalRules() {
+            return totalRules;
+        }
+        
+        public int getProcessedRules() {
+            return processedRules;
+        }
+        
+        public int getAlertsGenerated() {
+            return alertsGenerated;
+        }
+        
+        public List<String> getErrors() {
+            return Collections.unmodifiableList(errors);
+        }
+        
+        public boolean hasErrors() {
+            return !errors.isEmpty();
+        }
+        
+        @Override
+        public String toString() {
+            return String.format(
+                    "ProcessingResult{total=%d, processed=%d, alerts=%d, errors=%d}",
+                    totalRules, processedRules, alertsGenerated, errors.size()
+            );
+        }
+    }
+}

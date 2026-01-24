@@ -9,7 +9,12 @@ spring:
 
 # Configuração do scheduler
 scheduler:
-  enabled: false # Desligado por padrão (ligar via profile)
+  enabled: true # Ativado para processamento de regras
+  rule-processor:
+    # Executa a cada hora (00 minutos)
+    cron: "0 0 * * * *"
+    # Verificação rápida a cada 15 minutos
+    quick-cron: "0 */15 * * * *"
 
 management:
   endpoints:

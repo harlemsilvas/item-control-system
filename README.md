@@ -45,6 +45,34 @@ O **Item Control System** é uma solução completa para controle e monitorament
 
 ## 🏗️ Arquitetura
 
+### 📁 Estrutura do Projeto
+
+```
+item-control-system/
+├── 📄 README.md                    # Este arquivo
+├── 📄 pom.xml                      # Configuração Maven raiz
+├── 📄 docker-compose.yml           # Configuração Docker
+├── 📁 docs/                        # 📚 Documentação completa
+│   ├── INDEX.md                    # Índice da documentação
+│   ├── arquitetura.md              # Arquitetura detalhada
+│   ├── GUIA-TESTES.md              # Guia de testes
+│   ├── GUIA-MONGODB.md             # Guia do MongoDB
+│   ├── ADRs/                       # Architecture Decision Records
+│   └── iniciais/                   # Documentos de planejamento
+├── 📁 scripts/                     # 🔧 Scripts de automação
+│   ├── start-api.ps1               # Iniciar API
+│   ├── populate-test-data.ps1      # Popular dados de teste
+│   ├── test-api.ps1                # Testar endpoints
+│   ├── view-mongodb.ps1            # Visualizar MongoDB
+│   └── Encerrar.ps1                # Parar todos os serviços
+└── 📁 modules/                     # Módulos do projeto
+    ├── core/                       # Lógica de negócio (Domain + Use Cases)
+    ├── api/                        # REST API (Controllers + Adapters)
+    └── worker/                     # Processamento assíncrono (Rules Engine)
+```
+
+### 🎯 Módulos Maven
+
 ```
 ┌─────────────────────────────────────────┐
 │        MÓDULOS SPRING BOOT              │

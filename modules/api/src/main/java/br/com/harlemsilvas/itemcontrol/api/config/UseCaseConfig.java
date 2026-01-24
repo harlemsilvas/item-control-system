@@ -1,6 +1,7 @@
 package br.com.harlemsilvas.itemcontrol.api.config;
 
 import br.com.harlemsilvas.itemcontrol.core.application.ports.AlertRepository;
+import br.com.harlemsilvas.itemcontrol.core.application.ports.CategoryRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.EventRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.ItemRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.RuleRepository;
@@ -17,7 +18,13 @@ import br.com.harlemsilvas.itemcontrol.core.application.usecases.item.UpdateItem
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.rule.CreateRuleUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.rule.DeleteRuleUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.rule.GetRulesByItemUseCase;
+// TODO: Descomentar quando ProcessRulesUseCase estiver completo
+// import br.com.harlemsilvas.itemcontrol.core.application.usecases.rule.ProcessRulesUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.rule.UpdateRuleUseCase;
+import br.com.harlemsilvas.itemcontrol.core.usecases.category.CreateCategoryUseCase;
+import br.com.harlemsilvas.itemcontrol.core.usecases.category.DeleteCategoryUseCase;
+import br.com.harlemsilvas.itemcontrol.core.usecases.category.GetCategoriesByUserUseCase;
+import br.com.harlemsilvas.itemcontrol.core.usecases.category.UpdateCategoryUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -110,4 +117,39 @@ public class UseCaseConfig {
     public DeleteRuleUseCase deleteRuleUseCase(RuleRepository ruleRepository) {
         return new DeleteRuleUseCase(ruleRepository);
     }
+
+    // Category Use Cases
+
+    @Bean
+    public CreateCategoryUseCase createCategoryUseCase(CategoryRepository categoryRepository) {
+        return new CreateCategoryUseCase(categoryRepository);
+    }
+
+    @Bean
+    public GetCategoriesByUserUseCase getCategoriesByUserUseCase(CategoryRepository categoryRepository) {
+        return new GetCategoriesByUserUseCase(categoryRepository);
+    }
+
+    @Bean
+    public UpdateCategoryUseCase updateCategoryUseCase(CategoryRepository categoryRepository) {
+        return new UpdateCategoryUseCase(categoryRepository);
+    }
+
+    @Bean
+    public DeleteCategoryUseCase deleteCategoryUseCase(CategoryRepository categoryRepository) {
+        return new DeleteCategoryUseCase(categoryRepository);
+    }
+
+    // Rule Processing Use Cases (for Worker)
+    // TODO: Descomentar quando ProcessRulesUseCase estiver completo
+    /*
+    @Bean
+    public ProcessRulesUseCase processRulesUseCase(
+            RuleRepository ruleRepository,
+            ItemRepository itemRepository,
+            EventRepository eventRepository,
+            AlertRepository alertRepository) {
+        return new ProcessRulesUseCase(ruleRepository, itemRepository, eventRepository, alertRepository);
+    }
+    */
 }

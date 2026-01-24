@@ -12,8 +12,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @author Harlem Silvas
  * @version 0.1.0
  */
-@SpringBootApplication
-@EnableMongoRepositories
+@SpringBootApplication(scanBasePackages = {
+        "br.com.harlemsilvas.itemcontrol.worker",
+        "br.com.harlemsilvas.itemcontrol.api.config",
+        "br.com.harlemsilvas.itemcontrol.api.adapters",
+        "br.com.harlemsilvas.itemcontrol.api.infra"
+})
+@EnableMongoRepositories(basePackages = "br.com.harlemsilvas.itemcontrol.api.infra.mongo.repository")
 @EnableScheduling
 public class WorkerApplication {
 

@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      # URI PÚBLICA do Railway (acessível de qualquer lugar)
+      uri: ${MONGODB_URI:mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db}
+      auto-index-creation: true
+
+logging:
+  level:
+    br.com.harlemsilvas.itemcontrol: INFO
+    org.springframework.data.mongodb: WARN
