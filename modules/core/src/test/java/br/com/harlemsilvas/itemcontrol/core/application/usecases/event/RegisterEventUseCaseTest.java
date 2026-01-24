@@ -2,6 +2,7 @@ package br.com.harlemsilvas.itemcontrol.core.application.usecases.event;
 
 import br.com.harlemsilvas.itemcontrol.core.application.ports.EventRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.ItemRepository;
+import br.com.harlemsilvas.itemcontrol.core.domain.enums.EventType;
 import br.com.harlemsilvas.itemcontrol.core.domain.model.Event;
 import br.com.harlemsilvas.itemcontrol.core.domain.model.Item;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,13 +60,14 @@ class RegisterEventUseCaseTest {
 
         Event event = new Event.Builder()
                 .itemId(itemId)
-                .eventType("MAINTENANCE")
+                .userId(userId)
+                .eventType(EventType.MAINTENANCE)
                 .description("Test event")
                 .metrics(metrics)
-                .occurredAt(Instant.now())
+                .eventDate(Instant.now())
                 .build();
 
-        when(itemRepository.findById(itemId)).thenReturn(Optional.of(item));
+        when(itemRepository.existsById(itemId)).thenReturn(true);
         when(eventRepository.save(any(Event.class))).thenReturn(event);
 
         // When
@@ -74,9 +76,9 @@ class RegisterEventUseCaseTest {
         // Then
         assertThat(result).isNotNull();
         assertThat(result.getItemId()).isEqualTo(itemId);
-        assertThat(result.getEventType()).isEqualTo("MAINTENANCE");
+        assertThat(result.getEventType()).isEqualTo(EventType.MAINTENANCE);
 
-        verify(itemRepository, times(1)).findById(itemId);
+        verify(itemRepository, times(1)).existsById(itemId);
         verify(eventRepository, times(1)).save(event);
     }
 
@@ -97,22 +99,24 @@ class RegisterEventUseCaseTest {
     void shouldThrowExceptionWhenItemNotFound() {
         // Given
         UUID itemId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
 
         Event event = new Event.Builder()
                 .itemId(itemId)
-                .eventType("MAINTENANCE")
+                .userId(userId)
+                .eventType(EventType.MAINTENANCE)
                 .description("Test event")
-                .occurredAt(Instant.now())
+                .eventDate(Instant.now())
                 .build();
 
-        when(itemRepository.findById(itemId)).thenReturn(Optional.empty());
+        when(itemRepository.existsById(itemId)).thenReturn(false);
 
         // When & Then
         assertThatThrownBy(() -> useCase.execute(event))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(RegisterEventUseCase.ItemNotFoundException.class)
                 .hasMessageContaining("Item not found");
 
-        verify(itemRepository, times(1)).findById(itemId);
+        verify(itemRepository, times(1)).existsById(itemId);
         verify(eventRepository, never()).save(any());
     }
 }

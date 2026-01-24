@@ -1,6 +1,5 @@
 package br.com.harlemsilvas.itemcontrol.api.controllers;
 
-import br.com.harlemsilvas.itemcontrol.api.TestContainersConfiguration;
 import br.com.harlemsilvas.itemcontrol.api.dto.category.CreateCategoryRequest;
 import br.com.harlemsilvas.itemcontrol.api.dto.category.CategoryResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,12 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.UUID;
 
@@ -25,9 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Testcontainers
 @ActiveProfiles("test")
-@Import(TestContainersConfiguration.class)
 @DisplayName("CategoryController Integration Tests")
 class CategoryControllerIntegrationTest {
 

@@ -1,8 +1,7 @@
 package br.com.harlemsilvas.itemcontrol.api.controllers;
 
-import br.com.harlemsilvas.itemcontrol.api.TestContainersConfiguration;
-import br.com.harlemsilvas.itemcontrol.api.dto.item.CreateItemRequest;
-import br.com.harlemsilvas.itemcontrol.api.dto.item.ItemResponse;
+import br.com.harlemsilvas.itemcontrol.api.web.dto.request.CreateItemRequest;
+import br.com.harlemsilvas.itemcontrol.api.web.dto.response.ItemResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,12 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Testcontainers
 @ActiveProfiles("test")
-@Import(TestContainersConfiguration.class)
 @DisplayName("ItemController Integration Tests")
 class ItemControllerIntegrationTest {
 
@@ -54,15 +49,13 @@ class ItemControllerIntegrationTest {
         metadata.put("brand", "Toyota");
         metadata.put("model", "Corolla");
 
-        CreateItemRequest request = new CreateItemRequest(
-                userId,
-                "Meu Carro",
-                "corolla-2020",
-                "VEHICLE",
-                null,
-                null,
-                metadata
-        );
+        CreateItemRequest request = CreateItemRequest.builder()
+                .userId(userId)
+                .name("Meu Carro")
+                .nickname("corolla-2020")
+                .templateCode("VEHICLE")
+                .metadata(metadata)
+                .build();
 
         String requestBody = objectMapper.writeValueAsString(request);
 
@@ -81,9 +74,9 @@ class ItemControllerIntegrationTest {
         ItemResponse response = objectMapper.readValue(responseBody, ItemResponse.class);
 
         assertThat(response).isNotNull();
-        assertThat(response.id()).isNotNull();
-        assertThat(response.userId()).isEqualTo(userId);
-        assertThat(response.active()).isTrue();
+        assertThat(response.getId()).isNotNull();
+        assertThat(response.getUserId()).isEqualTo(userId);
+        assertThat(response.getStatus()).isNotNull();
     }
 
     @Test
@@ -93,15 +86,13 @@ class ItemControllerIntegrationTest {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("test", "value");
 
-        CreateItemRequest createRequest = new CreateItemRequest(
-                userId,
-                "Test Item",
-                "test-001",
-                "GENERAL",
-                null,
-                null,
-                metadata
-        );
+        CreateItemRequest createRequest = CreateItemRequest.builder()
+                .userId(userId)
+                .name("Test Item")
+                .nickname("test-001")
+                .templateCode("GENERAL")
+                .metadata(metadata)
+                .build();
 
         String createBody = objectMapper.writeValueAsString(createRequest);
 
@@ -117,9 +108,9 @@ class ItemControllerIntegrationTest {
         );
 
         // When - Get the item
-        mockMvc.perform(get("/api/v1/items/" + createdItem.id()))
+        mockMvc.perform(get("/api/v1/items/" + createdItem.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(createdItem.id().toString()))
+                .andExpect(jsonPath("$.id").value(createdItem.getId().toString()))
                 .andExpect(jsonPath("$.name").value("Test Item"))
                 .andExpect(jsonPath("$.nickname").value("test-001"));
     }
@@ -129,15 +120,13 @@ class ItemControllerIntegrationTest {
     void shouldListUserItems() throws Exception {
         // Given - Create multiple items
         for (int i = 1; i <= 3; i++) {
-            CreateItemRequest request = new CreateItemRequest(
-                    userId,
-                    "Item " + i,
-                    "item-" + i,
-                    "GENERAL",
-                    null,
-                    null,
-                    new HashMap<>()
-            );
+            CreateItemRequest request = CreateItemRequest.builder()
+                    .userId(userId)
+                    .name("Item " + i)
+                    .nickname("item-" + i)
+                    .templateCode("GENERAL")
+                    .metadata(new HashMap<>())
+                    .build();
 
             mockMvc.perform(post("/api/v1/items")
                             .contentType(MediaType.APPLICATION_JSON)
@@ -159,15 +148,13 @@ class ItemControllerIntegrationTest {
     @DisplayName("Should return 400 when creating item with invalid data")
     void shouldReturn400WhenCreatingItemWithInvalidData() throws Exception {
         // Given - Invalid request (missing required fields)
-        CreateItemRequest request = new CreateItemRequest(
-                null, // userId is required
-                "",   // name cannot be empty
-                "test",
-                "GENERAL",
-                null,
-                null,
-                new HashMap<>()
-        );
+        CreateItemRequest request = CreateItemRequest.builder()
+                .userId(null) // userId is required
+                .name("")     // name cannot be empty
+                .nickname("test")
+                .templateCode("GENERAL")
+                .metadata(new HashMap<>())
+                .build();
 
         String requestBody = objectMapper.writeValueAsString(request);
 

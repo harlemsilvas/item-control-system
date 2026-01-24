@@ -79,7 +79,7 @@ class GetItemByIdUseCaseTest {
         // When & Then
         assertThatThrownBy(() -> useCase.execute(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Item ID cannot be null");
+                .hasMessageContaining("ItemId cannot be null");
 
         verify(itemRepository, never()).findById(any());
     }
