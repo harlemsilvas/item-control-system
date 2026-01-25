@@ -1,7 +1,9 @@
 # 📦 POPULAR MONGODB COM DADOS DE TESTE
 
 **Data:** 2026-01-25  
-**Script:** `scripts/populate-test-data-local.ps1`  
+**Scripts:**  
+- `scripts/populate-test-data-local.ps1` (localhost:8080)
+- `scripts/populate-test-data-deploy.ps1` (Render/Deploy) ⭐ NOVO  
 **Status:** ✅ Pronto para uso
 
 ---
@@ -40,18 +42,36 @@
 
 ## 🚀 COMO USAR
 
-### Opção 1: Executar Script
+### Opção 1: Popular Banco LOCAL (localhost:8080)
 
 ```powershell
 cd C:\Users\harle\Desktop\java-estudos\Projeto-Harlem\item-control-system\scripts
 .\populate-test-data-local.ps1
 ```
 
-### Opção 2: Via Raiz do Projeto
+**Pré-requisito:** Backend rodando localmente na porta 8080
+
+### Opção 2: Popular Banco DEPLOY/PRODUÇÃO (Render) ⭐
+
+```powershell
+cd C:\Users\harle\Desktop\java-estudos\Projeto-Harlem\item-control-system\scripts
+.\populate-test-data-deploy.ps1
+```
+
+**URL:** https://item-control-api.onrender.com/api/v1  
+**Banco:** MongoDB Atlas (configurado no Render)  
+**Pré-requisito:** Backend deployado e funcionando no Render
+
+### Opção 3: Via Raiz do Projeto
 
 ```powershell
 cd C:\Users\harle\Desktop\java-estudos\Projeto-Harlem\item-control-system
+
+# Local
 .\scripts\populate-test-data-local.ps1
+
+# Deploy/Produção
+.\scripts\populate-test-data-deploy.ps1
 ```
 
 ---
@@ -314,20 +334,43 @@ scheduledFor = (Get-Date).AddDays(30).ToString("yyyy-MM-dd")
 
 ## 🎯 USAR EM PRODUÇÃO/RENDER
 
-### Adaptar para Render
+### Script Pronto: populate-test-data-deploy.ps1 ⭐
 
-**Criar:** `populate-test-data-render.ps1`
+**JÁ CRIADO E PRONTO PARA USO!**
 
 ```powershell
-# Mudar URL
-$API_URL = "https://item-control-api.onrender.com/api/v1"
-
-# Resto igual!
+.\scripts\populate-test-data-deploy.ps1
 ```
 
-**Executar:**
-```powershell
-.\populate-test-data-render.ps1
+**Características:**
+- ✅ URL: https://item-control-api.onrender.com/api/v1
+- ✅ Popula MongoDB Atlas (produção)
+- ✅ Mesmo User ID para testes
+- ✅ Mesmos dados (categorias, items, eventos, alertas)
+- ✅ Delays entre requisições para não sobrecarregar
+- ✅ Tratamento de erros melhorado
+
+**Quando usar:**
+- Quando backend está deployado no Render
+- Para testar frontend apontando para produção
+- Para demonstrações
+- Para validar integração completa
+
+**Verificar dados criados:**
+1. MongoDB Atlas: https://cloud.mongodb.com
+2. Database → Browse Collections
+3. Ver collections: items, events, alerts, categories
+
+**Configurar frontend para usar produção:**
+
+Editar `.env` no frontend:
+```
+VITE_API_URL=https://item-control-api.onrender.com/api/v1
+```
+
+Restart frontend:
+```bash
+npm run dev
 ```
 
 ---
