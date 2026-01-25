@@ -11,34 +11,47 @@ Esta branch (`deploy/render`) contém configurações otimizadas para **Render.c
 
 ## 🚀 Como Fazer Deploy
 
-### Passo 1: MongoDB Atlas (5 min)
+### Passo 1: MongoDB Atlas (✅ JÁ CONFIGURADO)
 
-1. Acesse: https://www.mongodb.com/cloud/atlas/register
-2. Crie conta gratuita (sem cartão)
-3. Create Cluster → **M0 FREE**
-4. Database Access:
-   - Username: `itemcontrol`
-   - Password: [gerar senha forte]
-   - Role: **Atlas Admin**
-5. Network Access:
-   - Add IP: **0.0.0.0/0** (Allow from anywhere)
-6. Connect → Application → Java
-7. Copiar connection string:
-   ```
-   mongodb+srv://itemcontrol:PASSWORD@cluster.xxxxx.mongodb.net/item_control_db
-   ```
+**Connection String:**
+```
+mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db
+```
+
+✅ Cluster: `cluster0.69j3tzl.mongodb.net`  
+✅ Database: `item_control_db`  
+✅ Network Access: Configurado  
+
+> **Nota:** Credenciais salvas em `.env.render` (não comitar!)
 
 ### Passo 2: Render Deploy (10 min)
 
-1. Acesse: https://render.com
-2. Signup (GitHub/Google/Email)
-3. New → **Blueprint**
-4. Connect Repository: `item-control-system`
-5. Branch: `deploy/render`
-6. Render detectará `render.yaml`
-7. Configure Environment Variables:
-   - `MONGODB_URI`: [sua connection string do Atlas]
-8. Apply → Deploy!
+1. **Acesse:** https://render.com
+2. **Signup** (GitHub/Google/Email - **RECOMENDADO: usar GitHub**)
+3. **Dashboard** → New → **Web Service**
+4. **Connect Repository:**
+   - Se usou GitHub: autorizar acesso ao repo `item-control-system`
+   - Ou: **Public Git Repository** → colar URL do GitHub
+5. **Configurar Service:**
+   - **Name:** `item-control-api`
+   - **Region:** Oregon (US West)
+   - **Branch:** `deploy/render` ⚠️ **IMPORTANTE!**
+   - **Runtime:** Docker **OU** deixar auto-detect
+   - **Build Command:** 
+     ```bash
+     mvn clean package -DskipTests -pl modules/api -am
+     ```
+   - **Start Command:**
+     ```bash
+     java -Xmx512m -jar modules/api/target/item-control-api-0.1.0-SNAPSHOT.jar
+     ```
+   - **Instance Type:** Free
+6. **Environment Variables** (clicar "Advanced"):
+   - `MONGODB_URI` = `mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority`
+   - `SPRING_PROFILES_ACTIVE` = `prod`
+   - `PORT` = `10000` (Render auto-configura, mas pode definir)
+7. **Health Check Path:** `/actuator/health`
+8. Clicar **"Create Web Service"**
 
 ### Passo 3: Aguardar Deploy (5-10 min)
 

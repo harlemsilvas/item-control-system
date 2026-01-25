@@ -58,6 +58,8 @@ spring-boot-devtools.properties
 .env
 .env.local
 .env.*.local
+.env.render
+.env.railway
 
 # Logs
 logs/
