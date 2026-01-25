@@ -38,11 +38,12 @@ function Invoke-ApiRequest {
     }
     catch {
         Write-Host "   ❌ Erro: $($_.Exception.Message)" -ForegroundColor Red
-        if ($_.Exception.Response) {
-            $reader = [System.IO.StreamReader]::new($_.Exception.Response.GetResponseStream())
-            $errorBody = $reader.ReadToEnd()
-            Write-Host "   Detalhes: $errorBody" -ForegroundColor DarkRed
+
+        # Tentar extrair detalhes do erro
+        if ($_.ErrorDetails.Message) {
+            Write-Host "   Detalhes: $($_.ErrorDetails.Message)" -ForegroundColor DarkRed
         }
+
         return $null
     }
 }
