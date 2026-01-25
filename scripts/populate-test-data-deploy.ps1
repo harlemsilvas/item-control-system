@@ -103,7 +103,7 @@ $items = @(
     @{
         name = "Honda Civic 2020"
         nickname = "civic"
-        template = "VEHICLE"
+        templateCode = "VEHICLE"
         description = "Carro principal da família"
         categoryId = $categoriasIds["veiculos"]
         metadata = @{
@@ -117,7 +117,7 @@ $items = @(
     @{
         name = "Notebook Dell"
         nickname = "notebook-trabalho"
-        template = "GENERAL"
+        templateCode = "GENERAL"
         description = "Notebook para trabalho"
         categoryId = $categoriasIds["eletronicos"]
         metadata = @{
@@ -129,7 +129,7 @@ $items = @(
     @{
         name = "Geladeira Brastemp"
         nickname = "geladeira-cozinha"
-        template = "GENERAL"
+        templateCode = "GENERAL"
         description = "Geladeira da cozinha"
         categoryId = $categoriasIds["casa"]
         metadata = @{
@@ -141,7 +141,7 @@ $items = @(
     @{
         name = "Conta de Luz"
         nickname = "conta-luz"
-        template = "RECURRING_BILL"
+        templateCode = "RECURRING_BILL"
         description = "Conta de energia elétrica mensal"
         categoryId = $categoriasIds["casa"]
         metadata = @{
@@ -153,7 +153,7 @@ $items = @(
     @{
         name = "Ar Condicionado"
         nickname = "ar-sala"
-        template = "GENERAL"
+        templateCode = "GENERAL"
         description = "Ar condicionado da sala"
         categoryId = $categoriasIds["casa"]
         metadata = @{
@@ -171,8 +171,7 @@ foreach ($item in $items) {
         userId = $USER_ID
         name = $item.name
         nickname = $item.nickname
-        template = $item.template
-        description = $item.description
+        templateCode = $item.templateCode
         categoryId = $item.categoryId
         metadata = $item.metadata
     }
