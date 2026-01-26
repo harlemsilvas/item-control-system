@@ -75,3 +75,12 @@ logs/
 *~
 # Passwordd and token files
 .generate-token-github
+
+# Deploy/Secrets
+.env.render
+.env.render.*
+
+# Frontend (React/Vite)
+item-control-frontend/node_modules/
+item-control-frontend/dist/
+item-control-frontend/.env.development
