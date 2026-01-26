@@ -77,3 +77,4 @@ logs/
 *~
 # Passwordd and token files
 .generate-token-github
+.env.development
