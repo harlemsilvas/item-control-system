@@ -30,16 +30,17 @@ USER spring:spring
 # Copy jar from build stage
 COPY --from=build /app/modules/api/target/item-control-api-*.jar app.jar
 
-# Expose port
-EXPOSE 8080
+# Render exposes PORT env var (default 10000)
+ENV PORT=10000
+EXPOSE ${PORT}
 
-# Health check
+# Health check - usa PORT dinâmica
 HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:${PORT}/actuator/health || exit 1
 
-# Run application
-ENTRYPOINT ["java", \
-  "-Djava.security.egd=file:/dev/./urandom", \
-  "-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:prod}", \
-  "-jar", \
-  "app.jar"]
+# Run application - usa PORT do Render
+ENTRYPOINT ["sh", "-c", "java \
+  -Djava.security.egd=file:/dev/./urandom \
+  -Dserver.port=${PORT} \
+  -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod} \
+  -jar app.jar"]

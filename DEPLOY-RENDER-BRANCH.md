@@ -38,7 +38,7 @@ java -Xmx512m -jar modules/api/target/item-control-api-0.1.0-SNAPSHOT.jar
 
 **Environment Variables:**
 ```
-MONGODB_URI=mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://harlemclaumann:Harlem010101@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority
 SPRING_PROFILES_ACTIVE=prod
 PORT=10000
 ```

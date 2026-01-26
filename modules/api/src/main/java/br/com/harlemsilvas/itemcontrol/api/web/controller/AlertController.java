@@ -59,9 +59,13 @@ public class AlertController {
     }
 
     @GetMapping("/pending")
-    @Operation(summary = "Listar alertas pendentes", description = "Lista todos os alertas pendentes de um usuário ordenados por prioridade")
-    public ResponseEntity<List<AlertResponse>> getPendingAlerts(@RequestParam UUID userId) {
-        List<Alert> alerts = listPendingAlertsUseCase.execute(userId);
+    @Operation(summary = "Listar alertas pendentes", description = "Lista todos os alertas pendentes de um usuário ordenados por prioridade (ou todos se userId não fornecido)")
+    public ResponseEntity<List<AlertResponse>> getPendingAlerts(
+            @RequestParam(required = false) UUID userId) {
+        // Se userId não fornecido, usar ID padrão para demo/desenvolvimento
+        UUID effectiveUserId = userId != null ? userId : UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
+
+        List<Alert> alerts = listPendingAlertsUseCase.execute(effectiveUserId);
         List<AlertResponse> response = alerts.stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
@@ -70,11 +74,14 @@ public class AlertController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar alertas por status", description = "Lista alertas de um usuário filtrados por status")
+    @Operation(summary = "Listar alertas por status", description = "Lista alertas de um usuário filtrados por status (ou todos se userId não fornecido)")
     public ResponseEntity<List<AlertResponse>> getAlertsByStatus(
-            @RequestParam UUID userId,
+            @RequestParam(required = false) UUID userId,
             @RequestParam AlertStatus status) {
-        List<Alert> alerts = listPendingAlertsUseCase.executeByStatus(userId, status);
+        // Se userId não fornecido, usar ID padrão para demo/desenvolvimento
+        UUID effectiveUserId = userId != null ? userId : UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
+
+        List<Alert> alerts = listPendingAlertsUseCase.executeByStatus(effectiveUserId, status);
         List<AlertResponse> response = alerts.stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
@@ -83,9 +90,13 @@ public class AlertController {
     }
 
     @GetMapping("/count")
-    @Operation(summary = "Contar alertas pendentes", description = "Retorna o número de alertas pendentes de um usuário")
-    public ResponseEntity<Long> countPendingAlerts(@RequestParam UUID userId) {
-        long count = listPendingAlertsUseCase.countPending(userId);
+    @Operation(summary = "Contar alertas pendentes", description = "Retorna o número de alertas pendentes de um usuário (ou todos se userId não fornecido)")
+    public ResponseEntity<Long> countPendingAlerts(
+            @RequestParam(required = false) UUID userId) {
+        // Se userId não fornecido, usar ID padrão para demo/desenvolvimento
+        UUID effectiveUserId = userId != null ? userId : UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
+
+        long count = listPendingAlertsUseCase.countPending(effectiveUserId);
         return ResponseEntity.ok(count);
     }
 
@@ -93,9 +104,12 @@ public class AlertController {
     @Operation(summary = "Reconhecer alerta", description = "Marca um alerta como reconhecido/lido")
     public ResponseEntity<AlertResponse> acknowledgeAlert(
             @PathVariable UUID id,
-            @RequestParam UUID userId) {
+            @RequestParam(required = false) UUID userId) {
+        // Se userId não fornecido, usar ID padrão para demo/desenvolvimento
+        UUID effectiveUserId = userId != null ? userId : UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
+
         try {
-            Alert alert = acknowledgeAlertUseCase.execute(id, userId);
+            Alert alert = acknowledgeAlertUseCase.execute(id, effectiveUserId);
             return ResponseEntity.ok(toResponse(alert));
         } catch (AcknowledgeAlertUseCase.AlertNotFoundException e) {
             return ResponseEntity.notFound().build();
@@ -106,9 +120,12 @@ public class AlertController {
     @Operation(summary = "Resolver alerta", description = "Marca um alerta como resolvido/concluído")
     public ResponseEntity<AlertResponse> resolveAlert(
             @PathVariable UUID id,
-            @RequestParam UUID userId) {
+            @RequestParam(required = false) UUID userId) {
+        // Se userId não fornecido, usar ID padrão para demo/desenvolvimento
+        UUID effectiveUserId = userId != null ? userId : UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
+
         try {
-            Alert alert = resolveAlertUseCase.execute(id, userId);
+            Alert alert = resolveAlertUseCase.execute(id, effectiveUserId);
             return ResponseEntity.ok(toResponse(alert));
         } catch (ResolveAlertUseCase.AlertNotFoundException e) {
             return ResponseEntity.notFound().build();

@@ -61,9 +61,13 @@ public class ItemController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar itens do usuário", description = "Lista todos os itens de um usuário")
-    public ResponseEntity<List<ItemResponse>> listUserItems(@RequestParam UUID userId) {
-        List<Item> items = listUserItemsUseCase.execute(userId);
+    @Operation(summary = "Listar itens do usuário", description = "Lista todos os itens de um usuário (ou todos se userId não fornecido)")
+    public ResponseEntity<List<ItemResponse>> listUserItems(
+            @RequestParam(required = false) UUID userId) {
+        // Se userId não fornecido, usar ID padrão para demo/desenvolvimento
+        UUID effectiveUserId = userId != null ? userId : UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
+
+        List<Item> items = listUserItemsUseCase.execute(effectiveUserId);
         List<ItemResponse> response = items.stream()
             .map(this::toResponse)
             .collect(Collectors.toList());
@@ -72,9 +76,13 @@ public class ItemController {
     }
 
     @GetMapping("/active")
-    @Operation(summary = "Listar itens ativos", description = "Lista apenas itens ativos do usuário")
-    public ResponseEntity<List<ItemResponse>> listActiveItems(@RequestParam UUID userId) {
-        List<Item> items = listUserItemsUseCase.executeActiveOnly(userId);
+    @Operation(summary = "Listar itens ativos", description = "Lista apenas itens ativos do usuário (ou todos se userId não fornecido)")
+    public ResponseEntity<List<ItemResponse>> listActiveItems(
+            @RequestParam(required = false) UUID userId) {
+        // Se userId não fornecido, usar ID padrão para demo/desenvolvimento
+        UUID effectiveUserId = userId != null ? userId : UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
+
+        List<Item> items = listUserItemsUseCase.executeActiveOnly(effectiveUserId);
         List<ItemResponse> response = items.stream()
             .map(this::toResponse)
             .collect(Collectors.toList());

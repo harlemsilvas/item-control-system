@@ -44,7 +44,7 @@ Get-Content .env.render
 Abra `.env.render` e copie para Render Dashboard:
 
 ```bash
-MONGODB_URI=mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://harlemclaumann:Harlem010101@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority
 SPRING_PROFILES_ACTIVE=prod
 PORT=10000
 ```
@@ -96,7 +96,7 @@ No Render Dashboard:
 ```powershell
 # Abrir MongoDB Compass
 # Conectar com URL:
-mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/
+mongodb+srv://harlemclaumann:Harlem010101@cluster0.69j3tzl.mongodb.net/
 
 # Database: item_control_db
 # Collections: items, categories, events, alerts

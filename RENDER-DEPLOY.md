@@ -15,7 +15,7 @@ Esta branch (`deploy/render`) contém configurações otimizadas para **Render.c
 
 **Connection String:**
 ```
-mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db
+mongodb+srv://harlemclaumann:Harlem010101@cluster0.69j3tzl.mongodb.net/item_control_db
 ```
 
 ✅ Cluster: `cluster0.69j3tzl.mongodb.net`  
@@ -36,30 +36,30 @@ mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_
    - **Name:** `item-control-api`
    - **Region:** Oregon (US West)
    - **Branch:** `deploy/render` ⚠️ **IMPORTANTE!**
-   - **Runtime:** Docker **OU** deixar auto-detect
-   - **Build Command:** 
-     ```bash
-     mvn clean package -DskipTests -pl modules/api -am
-     ```
-   - **Start Command:**
-     ```bash
-     java -Xmx512m -jar modules/api/target/item-control-api-0.1.0-SNAPSHOT.jar
-     ```
+   - **Language:** `Docker` ⚠️ **(Render NÃO tem Java nativo!)**
+   - **Dockerfile Path:** `./Dockerfile` (auto-detectado)
    - **Instance Type:** Free
-6. **Environment Variables** (clicar "Advanced"):
-   - `MONGODB_URI` = `mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority`
+6. **Environment Variables:**
+   - `MONGODB_URI` = `mongodb+srv://harlemclaumann:Harlem010101@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority`
    - `SPRING_PROFILES_ACTIVE` = `prod`
-   - `PORT` = `10000` (Render auto-configura, mas pode definir)
+   - `PORT` = `10000`
 7. **Health Check Path:** `/actuator/health`
 8. Clicar **"Create Web Service"**
 
-### Passo 3: Aguardar Deploy (5-10 min)
+> **⚠️ IMPORTANTE:** Render só tem runtime nativo para Node, Python, Ruby, Go, Rust e Elixir.  
+> Para Java/Spring Boot, use **Docker** (nosso projeto já tem `Dockerfile` otimizado).
+
+### Passo 3: Aguardar Deploy (10-15 min primeira vez)
 
 Render vai:
-1. Detectar Java 21
-2. Executar Maven build
-3. Iniciar aplicação
+1. Clonar repositório
+2. Build Docker image (Maven + Java 21)
+3. Executar container
 4. Gerar URL pública
+
+**Tempo esperado:**
+- ✅ Primeira vez: 10-15 min
+- ✅ Rebuilds: 5-8 min (com cache)
 
 ### Passo 4: Testar
 

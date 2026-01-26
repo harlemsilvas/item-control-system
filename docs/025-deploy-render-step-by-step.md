@@ -10,7 +10,7 @@
 ## 📋 PRÉ-REQUISITOS CONCLUÍDOS
 
 ✅ **MongoDB Atlas configurado**
-- Connection String: `mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db`
+- Connection String: `mongodb+srv://harlemclaumann:Harlem010101@cluster0.69j3tzl.mongodb.net/item_control_db`
 - Database: `item_control_db`
 - Network Access: Liberado (0.0.0.0/0)
 
@@ -83,62 +83,78 @@
 
 ## 🎯 PASSO 3: CONFIGURAR WEB SERVICE (5 min)
 
-### 3.1 Informações Básicas
+### ⚠️ IMPORTANTE: Render e Java
 
-Na tela de configuração, preencher:
+**Render NÃO tem runtime Java nativo!**
+- Linguagens nativas: Node, Python, Ruby, Go, Rust, Elixir
+- **Para Java/Spring Boot:** Use **Docker** (forma oficial e recomendada)
+- Nosso projeto já tem `Dockerfile` otimizado para Render
+
+### 3.1 Informações Básicas
 
 ```yaml
 Name: item-control-api
-Region: Oregon (US West) # ou mais próximo
-Branch: deploy/render    # ⚠️ IMPORTANTE!
-Runtime: Java            # Auto-detectado
+Project: (deixar vazio)
+Language: Docker        # ✅ DEIXAR Docker! (não existe Java nativo)
+Branch: deploy/render   # ⚠️ IMPORTANTE!
+Region: Oregon (US West)
 ```
 
-### 3.2 Build Settings
+### 3.2 Root Directory
 
-**Root Directory:** (deixar vazio ou `/`)
+**Root Directory:** (deixar vazio)
 
-**Build Command:**
-```bash
-mvn clean package -DskipTests -pl modules/api -am
-```
+### 3.3 Configuração Docker
 
-**Start Command:**
-```bash
-java -Xmx512m -jar modules/api/target/item-control-api-0.1.0-SNAPSHOT.jar
-```
+O Render detectou automaticamente o `Dockerfile`:
 
-### 3.3 Instance Type
+**Dockerfile Path:** `./Dockerfile` (já detectado - não alterar)
 
-- Escolher: **Free** ($0/mês)
+**Docker Command:** (deixar vazio - usaremos o ENTRYPOINT do Dockerfile)
+
+### 3.4 Instance Type
+
+Rolar para baixo até **"Instance Type"**
+
+- Escolher: **"Free"** (primeira opção - "For hobby projects")
 - ✅ 512MB RAM
 - ✅ 750 horas/mês
-- ⚠️ Sleep após 15 min de inatividade
+- ⚠️ Sleep após 15 min de inatividade (normal no free tier)
 
-### 3.4 Advanced Settings (CLICAR)
+### 3.5 Environment Variables
 
-Rolar para baixo e clicar **"Advanced"**
+Rolar para baixo até **"Environment Variables"**
 
-**Environment Variables** - Adicionar 3 variáveis:
+Clicar para adicionar 3 variáveis:
 
 | Key | Value |
 |-----|-------|
-| `MONGODB_URI` | `mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority` |
+| `MONGODB_URI` | `mongodb+srv://harlemclaumann:Harlem010101@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority` |
 | `SPRING_PROFILES_ACTIVE` | `prod` |
 | `PORT` | `10000` |
 
 **Como adicionar:**
-1. Clicar **"Add Environment Variable"**
+1. Clicar **"Add Environment Variable"** ou ícone "+"
 2. Preencher **Key** e **Value**
-3. Repetir 3 vezes (uma para cada variável)
+3. Repetir 3 vezes
 
-**Health Check Path:**
+⚠️ **IMPORTANTE:** 
+- Copie `MONGODB_URI` completo com `?retryWrites=true&w=majority`
+- `PORT=10000` é padrão do Render - nosso Dockerfile usa essa variável
+
+### 3.6 Health Check Path
+
+Localizar **"Health Check Path"** e preencher:
+
 ```
 /actuator/health
 ```
 
-### 3.5 Auto-Deploy (opcional mas recomendado)
-- ✅ Marcar **"Auto-Deploy"**
+### 3.7 Auto-Deploy
+
+No final da página, localizar **"Auto-Deploy"**
+
+- ✅ Deixar marcado (habilitado)
 - Render fará deploy automático a cada push na branch `deploy/render`
 
 ---

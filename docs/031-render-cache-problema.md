@@ -133,7 +133,7 @@ Seguir tutorial: `docs/027-render-form-quick-guide.md`
 
 **Environment Variables:**
 ```
-MONGODB_URI=mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://harlemclaumann:Harlem010101@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority
 SPRING_PROFILES_ACTIVE=prod
 PORT=10000
 ```
@@ -229,14 +229,14 @@ Invoke-RestMethod "https://item-control-api.onrender.com/api/v1/items" `
 
 No Render, Environment Variables, verificar se `MONGODB_URI` está:
 ```
-mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority
+mongodb+srv://harlemclaumann:Harlem010101@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority
 ```
 
 ### Opção 2: Testar Connection String Localmente
 
 ```powershell
 # Testar se connection string funciona
-$env:MONGODB_URI = "mongodb+srv://harlemclaumann:xAsYVqpaNzGLJq80@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority"
+$env:MONGODB_URI = "mongodb+srv://harlemclaumann:Harlem010101@cluster0.69j3tzl.mongodb.net/item_control_db?retryWrites=true&w=majority"
 $env:SPRING_PROFILES_ACTIVE = "prod"
 
 cd modules/api

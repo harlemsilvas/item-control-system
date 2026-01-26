@@ -2,7 +2,6 @@ package br.com.harlemsilvas.itemcontrol.api.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -22,23 +21,8 @@ public class DatabaseAdminController {
 
     private final MongoTemplate mongoTemplate;
 
-    @PostConstruct
-    public void initCollections() {
-        log.info("Verificando e criando collections...");
-
-        String[] collections = {"items", "categories", "alerts", "events", "rules"};
-
-        for (String collectionName : collections) {
-            if (!mongoTemplate.collectionExists(collectionName)) {
-                mongoTemplate.createCollection(collectionName);
-                log.info("Collection '{}' criada", collectionName);
-            } else {
-                log.debug("Collection '{}' já existe", collectionName);
-            }
-        }
-
-        log.info("Total de collections: {}", mongoTemplate.getCollectionNames().size());
-    }
+    // Collections são criadas automaticamente pelo Spring Data MongoDB
+    // quando o primeiro documento é salvo. Não é necessário criar manualmente.
 
     @GetMapping("/collections")
     @Operation(summary = "Listar collections", description = "Lista todas as collections existentes no banco")
