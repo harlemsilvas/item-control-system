@@ -48,7 +48,33 @@ Bem-vindo à documentação do **Item Control System**!
   - Sprint 6: MVP Final
   - Roadmap futuro (Notificações, OAuth, Mobile, ML)
 
-- **[004 - Sprint 1 Progresso](004-sprint-1-progresso.md)**
+---
+
+### 5. Setup e Configuração ⭐ NOVO
+
+- **[QUICK-START-DEV.md](../QUICK-START-DEV.md)**
+  - Início rápido para desenvolvimento (1 comando)
+  - URLs de acesso
+  - Comandos essenciais
+
+- **[DEV-LOCAL-GUIDE.md](../DEV-LOCAL-GUIDE.md)**
+  - Guia completo de desenvolvimento local
+  - Arquitetura detalhada
+  - Troubleshooting
+  - Workflows recomendados
+
+- **[043 - Setup Dev Local Completo](043-setup-dev-local-completo.md)**
+  - Documentação técnica completa
+  - Detalhes de cada script
+  - Fluxo de dados
+  - Validações implementadas
+
+- **[042 - Commits Git Atualizados](042-commits-git-atualizados.md)**
+  - Status dos repositórios
+  - Histórico de commits
+  - Próximos passos
+
+---- **[004 - Sprint 1 Progresso](004-sprint-1-progresso.md)**
   - Relatório de progresso do Sprint 1
   - Estatísticas de código
   - Arquivos criados e commits
