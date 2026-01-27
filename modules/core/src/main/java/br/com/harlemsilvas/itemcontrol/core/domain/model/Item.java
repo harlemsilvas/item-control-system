@@ -251,7 +251,7 @@ public class Item {
         }
 
         public Builder tags(Set<String> tags) {
-            this.tags = new HashSet<>(tags);
+            this.tags = (tags == null) ? new HashSet<>() : new HashSet<>(tags);
             return this;
         }
 
@@ -261,7 +261,7 @@ public class Item {
         }
 
         public Builder metadata(Map<String, Object> metadata) {
-            this.metadata = new HashMap<>(metadata);
+            this.metadata = (metadata == null) ? new HashMap<>() : new HashMap<>(metadata);
             return this;
         }
 

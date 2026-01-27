@@ -37,17 +37,28 @@ public class ItemController {
     @PostMapping
     @Operation(summary = "Criar novo item", description = "Cria um novo item no sistema")
     public ResponseEntity<ItemResponse> createItem(@Valid @RequestBody CreateItemRequest request) {
-        Item item = new Item.Builder()
-            .userId(request.getUserId())
-            .name(request.getName())
-            .nickname(request.getNickname())
-            .categoryId(request.getCategoryId())
-            .templateCode(request.getTemplateCode())
-            .tags(request.getTags())
-            .metadata(request.getMetadata())
-            .build();
 
-        Item created = createItemUseCase.execute(item);
+        CreateItemUseCase.CreateItemCommand command = new CreateItemUseCase.CreateItemCommand();
+        command.userId = request.getUserId();
+        command.name = request.getName();
+        command.nickname = request.getNickname();
+        command.categoryId = request.getCategoryId();
+        command.templateId = request.getTemplateId();
+        command.templateCode = request.getTemplateCode();
+        command.tags = request.getTags();
+        command.metadata = request.getMetadata();
+
+        if (request.getNewTemplate() != null) {
+            CreateItemUseCase.CreateItemCommand.TemplateCreateCommand t = new CreateItemUseCase.CreateItemCommand.TemplateCreateCommand();
+            t.scope = request.getNewTemplate().getScope();
+            t.code = request.getNewTemplate().getCode();
+            t.nameByLocale = request.getNewTemplate().getNameByLocale();
+            t.descriptionByLocale = request.getNewTemplate().getDescriptionByLocale();
+            t.metadataSchema = request.getNewTemplate().getMetadataSchema();
+            command.newTemplate = t;
+        }
+
+        Item created = createItemUseCase.execute(command);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(created));
     }

@@ -30,8 +30,21 @@ public class CreateItemRequest {
 
     private UUID categoryId;
 
-    @NotBlank(message = "TemplateCode cannot be blank")
+    /**
+     * Template existente por ID (nova opção).
+     */
+    private UUID templateId;
+
+    /**
+     * Template existente por código (compatibilidade).
+     * Opcional se templateId ou newTemplate forem informados.
+     */
     private String templateCode;
+
+    /**
+     * Novo template criado junto com o item.
+     */
+    private CreateItemTemplateRequest newTemplate;
 
     private Set<String> tags;
 

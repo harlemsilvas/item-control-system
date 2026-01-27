@@ -24,7 +24,7 @@ if ($LASTEXITCODE -eq 0) {
 Write-Host ""
 Write-Host "[2/3] Executando testes de integração (API)..." -ForegroundColor Yellow
 Write-Host "  (Isso pode demorar - Testcontainers iniciando MongoDB...)" -ForegroundColor Gray
-mvn test -pl modules/api -q
+mvn test -pl modules/api -am -q
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "  ✅ Testes API: SUCESSO" -ForegroundColor Green
@@ -34,7 +34,7 @@ if ($LASTEXITCODE -eq 0) {
 
 Write-Host ""
 Write-Host "[3/3] Gerando relatório de cobertura..." -ForegroundColor Yellow
-mvn jacoco:report -q
+mvn -q jacoco:report
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "  ✅ Relatório gerado" -ForegroundColor Green

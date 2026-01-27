@@ -55,7 +55,7 @@ if ($javaVersion) {
 Write-Host ""
 # Navegar para modulo API
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot ".."))
-$apiPath = Join-Path $repoRoot "modules\api"
+$apiPath = Join-Path $repoRoot "modules\\api"
 
 if (-not (Test-Path $apiPath)) {
     Write-Host "   [ERRO] Pasta do modulo API nao encontrada: $apiPath" -ForegroundColor Red
@@ -68,7 +68,18 @@ try {
     if (-not $SkipBuild) {
         Write-Host "[4/6] Compilando projeto (Maven)..." -ForegroundColor Yellow
         Write-Host "   (Use -SkipBuild para pular esta etapa)" -ForegroundColor Gray
-        mvn clean package -DskipTests
+
+        # Importante: buildar via reactor no root para garantir que o módulo core seja compilado/atualizado
+        Pop-Location
+        Push-Location $repoRoot
+        try {
+            mvn -pl modules/api -am clean package -DskipTests
+        }
+        finally {
+            Pop-Location
+            Push-Location $apiPath
+        }
+
         if ($LASTEXITCODE -ne 0) {
             Write-Host "   [ERRO] Erro na compilacao!" -ForegroundColor Red
             exit 1

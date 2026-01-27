@@ -5,6 +5,7 @@ import br.com.harlemsilvas.itemcontrol.core.application.ports.CategoryRepository
 import br.com.harlemsilvas.itemcontrol.core.application.ports.EventRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.ItemRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.ports.RuleRepository;
+import br.com.harlemsilvas.itemcontrol.core.application.ports.TemplateRepository;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.alert.AcknowledgeAlertUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.alert.CreateAlertUseCase;
 import br.com.harlemsilvas.itemcontrol.core.application.usecases.alert.ListPendingAlertsUseCase;
@@ -25,6 +26,12 @@ import br.com.harlemsilvas.itemcontrol.core.usecases.category.CreateCategoryUseC
 import br.com.harlemsilvas.itemcontrol.core.usecases.category.DeleteCategoryUseCase;
 import br.com.harlemsilvas.itemcontrol.core.usecases.category.GetCategoriesByUserUseCase;
 import br.com.harlemsilvas.itemcontrol.core.usecases.category.UpdateCategoryUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.template.CreateTemplateUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.template.DeleteTemplateUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.template.GetTemplateByIdUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.template.ListTemplatesUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.template.ResolveTemplateUseCase;
+import br.com.harlemsilvas.itemcontrol.core.application.usecases.template.UpdateTemplateUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -37,8 +44,8 @@ public class UseCaseConfig {
     // Item Use Cases
 
     @Bean
-    public CreateItemUseCase createItemUseCase(ItemRepository itemRepository) {
-        return new CreateItemUseCase(itemRepository);
+    public CreateItemUseCase createItemUseCase(ItemRepository itemRepository, TemplateRepository templateRepository) {
+        return new CreateItemUseCase(itemRepository, templateRepository);
     }
 
     @Bean
@@ -138,6 +145,38 @@ public class UseCaseConfig {
     @Bean
     public DeleteCategoryUseCase deleteCategoryUseCase(CategoryRepository categoryRepository) {
         return new DeleteCategoryUseCase(categoryRepository);
+    }
+
+    // Template Use Cases
+
+    @Bean
+    public CreateTemplateUseCase createTemplateUseCase(TemplateRepository templateRepository) {
+        return new CreateTemplateUseCase(templateRepository);
+    }
+
+    @Bean
+    public UpdateTemplateUseCase updateTemplateUseCase(TemplateRepository templateRepository) {
+        return new UpdateTemplateUseCase(templateRepository);
+    }
+
+    @Bean
+    public DeleteTemplateUseCase deleteTemplateUseCase(TemplateRepository templateRepository) {
+        return new DeleteTemplateUseCase(templateRepository);
+    }
+
+    @Bean
+    public GetTemplateByIdUseCase getTemplateByIdUseCase(TemplateRepository templateRepository) {
+        return new GetTemplateByIdUseCase(templateRepository);
+    }
+
+    @Bean
+    public ListTemplatesUseCase listTemplatesUseCase(TemplateRepository templateRepository) {
+        return new ListTemplatesUseCase(templateRepository);
+    }
+
+    @Bean
+    public ResolveTemplateUseCase resolveTemplateUseCase(TemplateRepository templateRepository) {
+        return new ResolveTemplateUseCase(templateRepository);
     }
 
     // Rule Processing Use Cases (for Worker)
