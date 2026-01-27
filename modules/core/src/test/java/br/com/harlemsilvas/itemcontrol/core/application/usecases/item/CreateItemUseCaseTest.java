@@ -124,6 +124,9 @@ class CreateItemUseCaseTest {
         newTemplate.metadataSchema = Map.of("field1", Map.of("type", "string", "required", true));
         command.newTemplate = newTemplate;
 
+        // Metadata precisa satisfazer o schema do template
+        command.metadata = Map.of("field1", "value1");
+
         Template createdTemplate = new Template.Builder()
             .userId(userId)
             .scope(TemplateScope.USER)

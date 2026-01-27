@@ -5,6 +5,7 @@ import br.com.harlemsilvas.itemcontrol.core.application.ports.TemplateRepository
 import br.com.harlemsilvas.itemcontrol.core.domain.model.Item;
 import br.com.harlemsilvas.itemcontrol.core.domain.model.Template;
 import br.com.harlemsilvas.itemcontrol.core.domain.model.TemplateScope;
+import br.com.harlemsilvas.itemcontrol.core.domain.service.MetadataSchemaValidator;
 
 import java.util.Map;
 import java.util.Objects;
@@ -58,6 +59,7 @@ public class CreateItemUseCase {
         }
 
         String templateCode = command.templateCode;
+        Template resolvedTemplate = null;
 
         if (command.newTemplate != null) {
             TemplateScope scope = command.newTemplate.scope != null ? command.newTemplate.scope : TemplateScope.USER;
@@ -71,10 +73,12 @@ public class CreateItemUseCase {
                 .build();
 
             Template created = templateRepository.save(template);
+            resolvedTemplate = created;
             templateCode = created.getCode();
         } else if (command.templateId != null) {
             Template resolved = templateRepository.findById(command.templateId)
                 .orElseThrow(() -> new TemplateNotFoundException(command.templateId));
+            resolvedTemplate = resolved;
             templateCode = resolved.getCode();
         }
 
@@ -82,12 +86,29 @@ public class CreateItemUseCase {
             throw new IllegalArgumentException("TemplateCode cannot be null or empty");
         }
 
+        final String resolvedTemplateCode = templateCode;
+
+        // Se veio apenas templateCode (sem id/newTemplate), resolve para validar schema.
+        if (resolvedTemplate == null) {
+            // regra: tenta USER primeiro e depois GLOBAL usando o userId
+            resolvedTemplate = templateRepository.findByUserIdAndCode(command.userId, resolvedTemplateCode)
+                .or(() -> templateRepository.findByCodeGlobal(resolvedTemplateCode))
+                .orElse(null);
+        }
+
+        if (resolvedTemplate == null) {
+            throw new TemplateCodeNotFoundException(resolvedTemplateCode);
+        }
+
+        // Valida metadata contra schema do template
+        MetadataSchemaValidator.validateOrThrow(resolvedTemplate, command.metadata);
+
         Item item = new Item.Builder()
             .userId(command.userId)
             .name(command.name)
             .nickname(command.nickname)
             .categoryId(command.categoryId)
-            .templateCode(templateCode)
+            .templateCode(resolvedTemplateCode)
             .tags(command.tags)
             .metadata(command.metadata)
             .build();
@@ -98,6 +119,12 @@ public class CreateItemUseCase {
     public static class TemplateNotFoundException extends RuntimeException {
         public TemplateNotFoundException(UUID id) {
             super("Template not found: " + id);
+        }
+    }
+
+    public static class TemplateCodeNotFoundException extends RuntimeException {
+        public TemplateCodeNotFoundException(String code) {
+            super("Template not found by code: " + code);
         }
     }
 
