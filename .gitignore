@@ -84,3 +84,6 @@ logs/
 item-control-frontend/node_modules/
 item-control-frontend/dist/
 item-control-frontend/.env.development
+
+# Local run logs (PowerShell, troubleshooting)
+.logs/
