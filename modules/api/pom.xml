@@ -92,6 +92,7 @@
       <scope>test</scope>
     </dependency>
 
+
     <!-- REST Assured (testes de API) -->
     <dependency>
       <groupId>io.rest-assured</groupId>
