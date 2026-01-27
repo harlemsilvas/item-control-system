@@ -44,7 +44,7 @@ jobs:
 
       # Docker já vem disponível em ubuntu-latest; Testcontainers vai usar automaticamente.
       - name: Run integration tests
-        run: mvn -B -ntp -Pit verify
+        run: mvn -B -ntp -P Pit verify
 
       - name: Upload JaCoCo reports
         if: always()

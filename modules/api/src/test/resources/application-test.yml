@@ -1,6 +1,9 @@
 spring:
   data:
     mongodb:
+      # Evita fallback para localhost:27017 em ambientes sem Mongo.
+      # Nos ITs, essa propriedade será sobrescrita pelo DynamicPropertySource (Testcontainers).
+      uri: mongodb://127.0.0.1:0/test
       auto-index-creation: true
 
 logging:

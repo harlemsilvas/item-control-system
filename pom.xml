@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>br.com.harlemsilvas</groupId>
@@ -36,8 +35,12 @@
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+    <!-- Por padrão não roda ITs (Failsafe). O perfil Pit seta skipITs=false -->
+    <skipITs>true</skipITs>
+
     <!-- Versões Spring Boot -->
-    <spring-boot.version>3.2.14</spring-boot.version>
+    <!-- O patch precisa existir no Maven Central para resolver o BOM. -->
+    <spring-boot.version>3.2.12</spring-boot.version>
 
     <!-- Versões de dependências -->
     <lombok.version>1.18.30</lombok.version>
@@ -161,7 +164,7 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.0.0</version>
           <configuration>
-            <!-- Não rodar ITs no ciclo padrão: eles ficam para o Failsafe via perfil (-Pit / -Pit) -->
+            <!-- Unit tests apenas. ITs ficam no Failsafe via perfil Pit -->
             <excludes>
               <exclude>**/*IntegrationTest.java</exclude>
               <exclude>**/*IT.java</exclude>
@@ -174,12 +177,19 @@
           <artifactId>maven-failsafe-plugin</artifactId>
           <version>3.0.0</version>
           <configuration>
-            <!-- Desligado por padrão (build/CI limpo). Habilite com -Pit -->
-            <skipITs>true</skipITs>
+            <!-- Por padrão não roda ITs. Ativa no perfil Pit via propriedade skipITs=false -->
+            <skipITs>${skipITs}</skipITs>
             <!-- Somente *IntegrationTest (evita pegar outros testes por acidente) -->
             <includes>
               <include>**/*IntegrationTest.java</include>
             </includes>
+            <!-- Garante que *IT nunca roda -->
+            <excludes>
+              <exclude>**/*IT.java</exclude>
+            </excludes>
+            <environmentVariables>
+              <RUN_INTEGRATION_TESTS>true</RUN_INTEGRATION_TESTS>
+            </environmentVariables>
           </configuration>
           <executions>
             <execution>
@@ -250,54 +260,12 @@
   </build>
 
   <profiles>
-    <!-- Profile "it" (novo): ativa testes de integração via Failsafe -->
-    <profile>
-      <id>it</id>
-      <properties>
-        <skipITs>false</skipITs>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <configuration>
-              <skipITs>false</skipITs>
-              <environmentVariables>
-                <RUN_INTEGRATION_TESTS>true</RUN_INTEGRATION_TESTS>
-              </environmentVariables>
-              <includes>
-                <include>**/*IntegrationTest.java</include>
-              </includes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <!-- Alias temporário (compatibilidade): manter "Pit" -->
+    <!-- Manter só o Pit como sugerido -->
     <profile>
       <id>Pit</id>
       <properties>
         <skipITs>false</skipITs>
       </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <configuration>
-              <skipITs>false</skipITs>
-              <environmentVariables>
-                <RUN_INTEGRATION_TESTS>true</RUN_INTEGRATION_TESTS>
-              </environmentVariables>
-              <includes>
-                <include>**/*IntegrationTest.java</include>
-              </includes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
   </profiles>
 

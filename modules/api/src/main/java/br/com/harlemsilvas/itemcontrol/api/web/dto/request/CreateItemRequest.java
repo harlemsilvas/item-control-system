@@ -1,5 +1,6 @@
 package br.com.harlemsilvas.itemcontrol.api.web.dto.request;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -49,4 +50,12 @@ public class CreateItemRequest {
     private Set<String> tags;
 
     private Map<String, Object> metadata;
+
+    @AssertTrue(message = "You must provide one of: templateId, templateCode, or newTemplate")
+    public boolean isTemplateProvided() {
+        boolean hasTemplateId = templateId != null;
+        boolean hasTemplateCode = templateCode != null && !templateCode.isBlank();
+        boolean hasNewTemplate = newTemplate != null;
+        return hasTemplateId || hasTemplateCode || hasNewTemplate;
+    }
 }
