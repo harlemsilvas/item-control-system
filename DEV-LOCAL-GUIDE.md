@@ -220,7 +220,7 @@ mvn clean install -DskipTests
 ### Frontend não carrega
 
 ```powershell
-cd ..\item-control-frontend
+cd ..\frontend
 
 # Reinstalar dependências
 Remove-Item -Recurse -Force node_modules
@@ -243,14 +243,13 @@ item-control-system/
 │   ├── start-mongodb-docker.ps1    ← Só MongoDB
 │   ├── start-backend-dev.ps1       ← Só Backend
 │   └── start-frontend-dev.ps1      ← Só Frontend
-└── modules/
-    └── api/
-        └── src/main/resources/
-            └── application-dev.yml  ← Config dev
-
-item-control-frontend/
-├── .env.development                ← Config Vite dev
-└── src/
+├── modules/
+│   └── api/
+│       └── src/main/resources/
+│           └── application-dev.yml  ← Config dev
+└── frontend/
+    ├── .env.development                ← Config Vite dev
+    └── src/
 ```
 
 ---
@@ -341,11 +340,11 @@ docker-compose -f docker-compose.mongodb.yml down -v
 cd modules\api
 mvn clean
 
-cd ..\..\item-control-frontend
+cd ..\..\frontend
 Remove-Item -Recurse -Force node_modules
 
 # Recomeçar
-cd ..\item-control-system
+cd ..
 .\scripts\start-all-dev.ps1
 ```
 

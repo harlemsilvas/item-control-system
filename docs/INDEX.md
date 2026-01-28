@@ -174,6 +174,15 @@ Pasta `iniciais/` - Documentos de concepção do projeto:
 
 ---
 
+### 9. Backlog / TODO (Backend)
+
+- **[048 - Backend TODO: geração automática de code/unicidade para Templates](048-backend-todo-geracao-code-template.md)**
+  - Geração automática de `code` para scope GLOBAL e USER
+  - Regras de unicidade
+  - Estratégia de concorrência e índices
+
+---
+
 ## 🗺️ Navegação por Tópico
 
 ### Para Desenvolvedores

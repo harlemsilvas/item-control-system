@@ -235,7 +235,7 @@ docker ps --filter "name=item-control-mongo-dev"
 ### Frontend (Vite HMR)
 
 1. **Fazer mudança em código React:**
-   - [ ] Abrir: `item-control-frontend/src/App.tsx`
+   - [ ] Abrir: `frontend/src/App.tsx`
    - [ ] Mudar texto qualquer
    - [ ] Salvar (Ctrl+S)
 

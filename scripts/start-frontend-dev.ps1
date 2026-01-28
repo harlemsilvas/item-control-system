@@ -38,9 +38,9 @@ if ($nodeVersion) {
 Write-Host ""
 
 # Navegar para pasta do frontend
-# OBS: o frontend fica dentro do repo em item-control-system\item-control-frontend
+# OBS: o frontend fica dentro do repo em item-control-system\frontend
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot ".."))
-$frontendPath = Join-Path $repoRoot "item-control-frontend"
+$frontendPath = Join-Path $repoRoot "frontend"
 
 if (-not (Test-Path $frontendPath)) {
     Write-Host "   ❌ Pasta do frontend não encontrada!" -ForegroundColor Red

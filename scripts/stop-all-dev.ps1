@@ -1,4 +1,4 @@
-# Item Control System - STOP ALL DEV
+S# Item Control System - STOP ALL DEV
 # Para TODO o ambiente de desenvolvimento:
 # 1. Backend API (mata processo Java)
 # 2. Frontend (mata processo Node)

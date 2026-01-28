@@ -39,7 +39,7 @@ fix: Tornar userId opcional nos endpoints GET de Items e Alerts
 
 ---
 
-### 🔹 Frontend: `item-control-frontend`
+### 🔹 Frontend: `frontend`
 
 **Último Commit:**
 ```
@@ -88,7 +88,7 @@ src/
 
 ### Frontend
 ```
-📍 Local: C:\Users\harle\Desktop\java-estudos\Projeto-Harlem\item-control-frontend
+📍 Local: C:\Users\harle\Desktop\java-estudos\Projeto-Harlem\item-control-system\frontend
 🌐 Remote: (verificar com git remote -v)
 🌿 Branch: main
 ```
@@ -196,8 +196,8 @@ git clone <url-backend> item-control-system
 cd item-control-system
 
 # Frontend  
-git clone <url-frontend> item-control-frontend
-cd item-control-frontend
+git clone <url-frontend> item-control-system\frontend
+cd item-control-system\frontend
 ```
 
 ### Rodar Localmente (Setup Atualizado)
