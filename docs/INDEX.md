@@ -74,7 +74,7 @@ Bem-vindo à documentação do **Item Control System**!
   - Histórico de commits
   - Próximos passos
 
----- **[004 - Sprint 1 Progresso](004-sprint-1-progresso.md)**
+---- **[004 - Sprint 1 Progresso](history/sprints/004-sprint-1-progresso.md)**
   - Relatório de progresso do Sprint 1
   - Estatísticas de código
   - Arquivos criados e commits
@@ -98,6 +98,20 @@ Bem-vindo à documentação do **Item Control System**!
 
 - **Docker**
   - **[044 - Fix Docker Engine](deploy/docker/044-fix-docker-engine.md)**
+
+---
+
+### 7. Backend - Troubleshooting
+
+- **Railway / Auth**
+  - **[012 - Troubleshooting Auth (Railway)](backend/troubleshooting/railway/012-troubleshooting-auth-railway.md)**
+  - **[013 - Railway: Problema Resolvido](backend/troubleshooting/railway/013-railway-problema-resolvido.md)**
+
+- **API / Erros**
+  - **[014 - Solução erro 400 ao criar item](backend/troubleshooting/api/014-solucao-erro-400-criar-item.md)**
+
+- **Estabilização**
+  - **[047 - Plano de estabilização (schema/logs/commit)](backend/troubleshooting/stabilization/047-plano-estabilizacao-schema-logs-e-commit.md)**
 
 ---
 
@@ -137,39 +151,32 @@ Bem-vindo à documentação do **Item Control System**!
 
 ---
 
-### 8. Documentos Iniciais
+### 8. História / Sprints
 
-Pasta `iniciais/` - Documentos de concepção do projeto:
+- **[004 - Sprint 1 Progresso](history/sprints/004-sprint-1-progresso.md)**
+- **[005 - Sprint 1 Status Final](history/sprints/005-sprint-1-status-final.md)**
+- **[018 - Sprint 2 Completo (final)](history/sprints/018-sprint2-completo-final.md)**
 
-- **[Nomenclatura do Projeto](iniciais/Nomenclatura-Projeto.md)**
-  - Nomenclatura atual: `item-control-system`
-  - Nomenclatura futura: `ItemFlow`
-  - Maven coordinates e packages
-  - Versionamento SemVer
-  - Estratégia de branches
+---
 
-- **[Layout de Repositório](iniciais/Layout%20de%20Reposit%C3%B3rio.md)**
-  - Estrutura de pastas multi-módulo
-  - Organização de pacotes por módulo
-  - Dependências Maven
-  - Configuração de profiles
-  - Comandos de execução
+### 9. Status do Projeto
 
-- **[Observações de Arquitetura](iniciais/Observacao.md)**
-  - Estratégia de migração gradual
-  - Separação de camadas desde o início
-  - Contratos internos claros
-  - Idempotência de alertas
-  - Processamento assíncrono
-  - Feature toggles
+- **[STATUS-ATUAL](project/status/STATUS-ATUAL.md)**
+- **[016 - Status atual (Categorias)](project/status/016-status-atual-categorias.md)**
+- **[RESUMO-POPULACAO](project/status/RESUMO-POPULACAO.md)**
 
-- **[Projeto Java - Conceito Original](iniciais/Projeto-Java.md)**
-  - Objetivo do sistema completo
-  - Visão de arquitetura
-  - Stack técnica recomendada
-  - Fluxo de trabalho
-  - Modelagem do domínio
-  - Coleções MongoDB
+---
+
+### 10. Backend - Regras e Testes
+
+- **Regras**
+  - **[RULES-CRUD-COMPLETO](backend/rules/RULES-CRUD-COMPLETO.md)**
+
+- **Testes**
+  - **[017 - Testes automatizados (completo)](backend/testing/017-testes-automatizados-completo.md)**
+  - **[019 - Testes core (sucesso)](backend/testing/core/019-testes-core-sucesso.md)**
+  - **[020 - Testes (resumo final)](backend/testing/020-testes-resumo-final.md)**
+  - **[046 - Templates (CRUD) e Testes no Postman](backend/testing/046-templates-crud-e-testes-postman.md)**
 
 ---
 
