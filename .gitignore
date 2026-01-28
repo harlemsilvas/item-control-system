@@ -87,3 +87,7 @@ frontend/.env.development
 
 # Local run logs (PowerShell, troubleshooting)
 .logs/
+
+# Local-only notes and scratch files (do not commit)
+docs/_local/*
+!docs/_local/.gitkeep
