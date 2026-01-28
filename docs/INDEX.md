@@ -83,14 +83,21 @@ Bem-vindo à documentação do **Item Control System**!
 
 ---
 
-### 6. Guias Operacionais
+### 6. Deploy (Railway / MongoDB / Docker)
 
-- **[GitHub Setup](dev/setup/GITHUB-SETUP.md)**
-  - Como criar o repositório no GitHub
-  - Conectar repositório local ao remote
-  - Workflow de desenvolvimento (feature branches)
-  - Convenção de commits
-  - Comandos úteis do Git
+- **Railway**
+  - **[021 - Guia de Deploy Gratuito](deploy/railway/021-guia-deploy-gratuito.md)**
+  - **[022 - Deploy no Railway (passo a passo)](deploy/railway/022-deploy-railway-passo-a-passo.md)**
+  - **[011 - Migração Railway completa](deploy/railway/011-migracao-railway-completa.md)**
+  - **[015 - Sucesso: Railway funcionando](deploy/railway/015-SUCESSO-RAILWAY-FUNCIONANDO.md)**
+
+- **MongoDB**
+  - **[GUIA-MONGODB](deploy/mongodb/GUIA-MONGODB.md)**
+  - **[GUIA-VISUALIZAR-RAILWAY-MONGODB](deploy/mongodb/GUIA-VISUALIZAR-RAILWAY-MONGODB.md)**
+  - **[009 - Migração Railway MongoDB](deploy/mongodb/009-migracao-railway-mongodb.md)**
+
+- **Docker**
+  - **[044 - Fix Docker Engine](deploy/docker/044-fix-docker-engine.md)**
 
 ---
 
