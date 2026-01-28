@@ -63,7 +63,7 @@ Bem-vindo à documentação do **Item Control System**!
   - Troubleshooting
   - Workflows recomendados
 
-- **[043 - Setup Dev Local Completo](043-setup-dev-local-completo.md)**
+- **[043 - Setup Dev Local Completo](dev/setup/043-setup-dev-local-completo.md)**
   - Documentação técnica completa
   - Detalhes de cada script
   - Fluxo de dados
@@ -83,21 +83,9 @@ Bem-vindo à documentação do **Item Control System**!
 
 ---
 
-### 5. Arquitetura Técnica
-
-- **[Arquitetura Detalhada](arquitetura.md)**
-  - Diagrama de módulos
-  - Responsabilidades de cada módulo
-  - Estrutura de pacotes
-  - Fluxo de dados
-  - Patterns utilizados
-  - Estratégia de escalabilidade
-
----
-
 ### 6. Guias Operacionais
 
-- **[GitHub Setup](GITHUB-SETUP.md)**
+- **[GitHub Setup](dev/setup/GITHUB-SETUP.md)**
   - Como criar o repositório no GitHub
   - Conectar repositório local ao remote
   - Workflow de desenvolvimento (feature branches)
@@ -123,18 +111,22 @@ Bem-vindo à documentação do **Item Control System**!
   - Checklist de validação
   - Problemas comuns e soluções
 
-- **[PROXIMO-PASSO.md](../PROXIMO-PASSO.md)**
+- **[PROXIMO-PASSO.md](dev/workflows/PROXIMO-PASSO.md)**
   - Roteiro para continuar o desenvolvimento
   - Opções de trabalho (Testes, GitHub, Sprint 2)
   - Comandos prontos para uso
   - Objetivos da Sprint 2
   - Dashboard de progresso
 
-- **[CHECKLIST-RETOMADA.md](../CHECKLIST-RETOMADA.md)**
+- **[CHECKLIST-RETOMADA.md](dev/workflows/CHECKLIST-RETOMADA.md)**
   - Verificações rápidas ao retomar trabalho
   - Opções de trabalho organizadas
   - Comandos úteis prontos
   - Checklist de fim de sessão
+
+- **[PROXIMAS-ETAPAS.md](dev/workflows/PROXIMAS-ETAPAS.md)**
+  - Próximas etapas e backlog de desenvolvimento
+  - Organização de tarefas por prioridade
 
 ---
 
@@ -183,7 +175,7 @@ Pasta `iniciais/` - Documentos de concepção do projeto:
 
 ---
 
-## 🗺️ Navegação por Tópico
+## 🧭 Navegação por Tópico
 
 ### Para Desenvolvedores
 
@@ -191,7 +183,7 @@ Pasta `iniciais/` - Documentos de concepção do projeto:
 2. Entender arquitetura: **[ADR 001](ADRs/001-arquitetura-multi-modulo.md)** e **[Arquitetura Detalhada](arquitetura.md)**
 3. Ver modelo de domínio: **[002 - Análise de Casos de Uso](002-analise-casos-uso-modelo-dominio.md)**
 4. Planejar trabalho: **[003 - Roadmap](003-roadmap-implementacao.md)**
-5. Setup do projeto: **[GitHub Setup](GITHUB-SETUP.md)**
+5. Setup do projeto: **[GitHub Setup](dev/setup/GITHUB-SETUP.md)**
 
 ### Para Product Owners
 
@@ -255,4 +247,28 @@ Pasta `iniciais/` - Documentos de concepção do projeto:
 
 ---
 
-**Última atualização:** 22/01/2026
+## 🗂️ Organização de Documentos (estrutura atual)
+
+A pasta `docs/` está sendo organizada por áreas:
+
+- `docs/dev/` → setup local e workflows
+- `docs/deploy/` → deploy e operação (ex.: Railway)
+- `docs/backend/` → documentação técnica do backend (testing/troubleshooting)
+- `docs/history/` → histórico e incidentes
+- `docs/iniciais/` e `docs/ADRs/` → documentos de base e decisões
+
+---
+
+## 🗓️ Política de Datas (para novos docs e edições)
+
+Sempre que **criar** ou **editar** um documento, adicionar ao topo ou ao fim:
+
+- **Criado em:** DD/MM/AAAA
+- **Última modificação:** DD/MM/AAAA
+- **Data de liquidação:** DD/MM/AAAA (ou `—` enquanto não estiver concluído)
+
+> Observação: a padronização completa dos docs antigos será feita de forma incremental, conforme forem sendo revisitados.
+
+---
+
+**Última atualização:** 28/01/2026
