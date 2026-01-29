@@ -12,7 +12,7 @@
 
 **String de Conexão:**
 ```
-mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db
+mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930/item_control_db
 ```
 
 **No MongoDB Compass:**

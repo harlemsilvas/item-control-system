@@ -135,7 +135,7 @@ private String templateCode;
 ```
 
 ### MongoDB Compass - Verificar
-1. Conecte: `mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930`
+1. Conecte: `mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930`
 2. Atualize (F5)
 3. Database: `item_control_db`
 4. Collection: `items` ✅ Criada!

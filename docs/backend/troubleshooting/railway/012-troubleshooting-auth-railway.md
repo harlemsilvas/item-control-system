@@ -15,7 +15,7 @@ com.mongodb.MongoCommandException: Command failed with error 18 (AuthenticationF
 
 **URL usada:**
 ```
-mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db
+mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930/item_control_db
 ```
 
 ---
@@ -149,17 +149,17 @@ Encoded: p%40ss%3Aword
 
    **Teste 1 - Sem database:**
    ```
-   mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930
+   mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930
    ```
 
    **Teste 2 - Com database:**
    ```
-   mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db
+   mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930/item_control_db
    ```
 
    **Teste 3 - Com authSource:**
    ```
-   mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db?authSource=admin
+   mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930/item_control_db?authSource=admin
    ```
 
 3. **Se algum conectar:** Use esse formato no `application-prod.yml`
@@ -170,13 +170,13 @@ Encoded: p%40ss%3Aword
 
 ```bash
 # Teste 1 - Sem database
-mongosh "mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930"
+mongosh "mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930"
 
 # Teste 2 - Com database
-mongosh "mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db"
+mongosh "mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930/item_control_db"
 
 # Teste 3 - Com authSource
-mongosh "mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db?authSource=admin"
+mongosh "mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930/item_control_db?authSource=admin"
 ```
 
 ---
@@ -241,7 +241,7 @@ mvn clean package -DskipTests
 | `mongodb://user:pass@host:port/db?authSource=admin` | 🔄 Não testado | Se precisar authSource |
 | `mongodb://user:pass@host:port?authSource=admin` + `database: db` | 🔄 Não testado | Combinação |
 
-**✅ CONFIRMADO:** URL `mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930` conecta com sucesso no MongoDB Compass.
+**✅ CONFIRMADO:** URL `mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930` conecta com sucesso no MongoDB Compass.
 
 **⚠️ PRÓXIMO PASSO:** Collections serão criadas automaticamente pela aplicação Spring Boot ao salvar primeiro documento.
 

@@ -62,7 +62,7 @@ O projeto não estava compilando devido a erros de importação e incompatibilid
 ## 🔗 Conexão MongoDB Railway
 
 ### ✅ Configuração Aplicada
-- **URL:** `mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930`
+- **URL:** `mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930`
 - **Database:** `item_control_db`
 - **Status:** ✅ **CONEXÃO ESTABELECIDA COM SUCESSO**
 - **Profile:** `prod`

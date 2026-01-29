@@ -40,7 +40,7 @@ Criado em: 2026-01-23T21:54:52.810622100Z
 ### Passos:
 
 1. Abra MongoDB Compass
-2. Conecte com: `mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930`
+2. Conecte com: `mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930`
 3. Atualize (F5)
 4. Navegue: `item_control_db` → `items`
 5. Veja seu documento! 🎉
@@ -129,7 +129,7 @@ Invoke-RestMethod -Uri "http://localhost:8080/api/v1/items/$itemId" -Method GET
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930
+      uri: mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930
       database: item_control_db
       auto-index-creation: true
 ```
@@ -234,7 +234,7 @@ Invoke-RestMethod -Uri "http://localhost:8080/api/v1/alerts" `
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930
+      uri: mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930
       database: item_control_db
 ```
 

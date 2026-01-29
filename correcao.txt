@@ -1,0 +1,17 @@
+../item-control-system/docs/backend/troubleshooting/api/014-solucao-erro-400-criar-item.md:138:1. Conecte: `mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930`
+../item-control-system/docs/backend/troubleshooting/railway/012-troubleshooting-auth-railway.md:18:mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db
+../item-control-system/docs/backend/troubleshooting/railway/012-troubleshooting-auth-railway.md:152:   mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930
+../item-control-system/docs/backend/troubleshooting/railway/012-troubleshooting-auth-railway.md:157:   mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db
+../item-control-system/docs/backend/troubleshooting/railway/012-troubleshooting-auth-railway.md:162:   mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db?authSource=admin
+../item-control-system/docs/backend/troubleshooting/railway/012-troubleshooting-auth-railway.md:173:mongosh "mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930"
+../item-control-system/docs/backend/troubleshooting/railway/012-troubleshooting-auth-railway.md:176:mongosh "mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db"
+../item-control-system/docs/backend/troubleshooting/railway/012-troubleshooting-auth-railway.md:179:mongosh "mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db?authSource=admin"
+../item-control-system/docs/backend/troubleshooting/railway/012-troubleshooting-auth-railway.md:244:**✅ CONFIRMADO:** URL `mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930` conecta com sucesso no MongoDB Compass.
+../item-control-system/docs/backend/troubleshooting/railway/013-railway-problema-resolvido.md:12:mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930
+../item-control-system/docs/backend/troubleshooting/railway/013-railway-problema-resolvido.md:29:      uri: mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930
+../item-control-system/docs/backend/troubleshooting/railway/013-railway-problema-resolvido.md:127:1. Conecte usando: `mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930`
+../item-control-system/docs/deploy/mongodb/GUIA-VISUALIZAR-RAILWAY-MONGODB.md:15:mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930/item_control_db
+../item-control-system/docs/deploy/railway/011-migracao-railway-completa.md:65:- **URL:** `mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930`
+../item-control-system/docs/deploy/railway/015-SUCESSO-RAILWAY-FUNCIONANDO.md:43:2. Conecte com: `mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930`
+../item-control-system/docs/deploy/railway/015-SUCESSO-RAILWAY-FUNCIONANDO.md:132:      uri: mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930
+../item-control-system/docs/deploy/railway/015-SUCESSO-RAILWAY-FUNCIONANDO.md:237:      uri: mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930

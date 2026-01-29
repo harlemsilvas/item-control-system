@@ -9,7 +9,7 @@
 
 ✅ **URL do Railway funciona!**
 ```
-mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930
+mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930
 ```
 
 ✅ **Testado com MongoDB Compass:** Conexão bem-sucedida  
@@ -26,7 +26,7 @@ mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930
+      uri: mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930
       database: item_control_db
       auto-index-creation: true
 ```
@@ -124,7 +124,7 @@ Conforme você usar a API, estas collections serão criadas automaticamente:
 
 ### No MongoDB Compass:
 
-1. Conecte usando: `mongodb://mongo:vrzaNIBSuwNrVIMLLvKfmuiJwBFvglAG@hopper.proxy.rlwy.net:40930`
+1. Conecte usando: `mongodb://mongo:<Password>@hopper.proxy.rlwy.net:40930`
 2. Selecione database: `item_control_db`
 3. Você verá a collection `items` aparecer
 4. Clique para ver o documento criado

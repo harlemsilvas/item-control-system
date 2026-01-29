@@ -117,7 +117,7 @@ Bem-vindo à documentação do **Item Control System**!
 
 ### 7. Guias Práticos (Raiz do Projeto)
 
-- **[RESUMO-EXECUTIVO.md](../RESUMO-EXECUTIVO.md)**
+- **[RESUMO-EXECUTIVO.md](project/reports/RESUMO-EXECUTIVO.md)**
   - Visão geral completa do sistema
   - Como usar o sistema (start, compile, run)
   - Exemplos de uso da API
@@ -164,6 +164,9 @@ Bem-vindo à documentação do **Item Control System**!
 - **[STATUS-ATUAL](project/status/STATUS-ATUAL.md)**
 - **[016 - Status atual (Categorias)](project/status/016-status-atual-categorias.md)**
 - **[RESUMO-POPULACAO](project/status/RESUMO-POPULACAO.md)**
+- **[PARABENS](project/reports/PARABENS.md)**
+- **[OPCAO-B-CONCLUIDA](project/decisions/OPCAO-B-CONCLUIDA.md)**
+- **[OPCOES-A-B-CONCLUIDAS](project/decisions/OPCOES-A-B-CONCLUIDAS.md)**
 
 ---
 
